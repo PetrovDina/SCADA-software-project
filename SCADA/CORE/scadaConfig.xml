@@ -1,0 +1,16 @@
+﻿
+<Tags>
+  <DigitalInputTags>
+      <DigitalInputTag id="1" description="some desc" IOAddress="0" driverType="1" scanTime="2" scanOn="true"></DigitalInputTag>
+      <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="2" scanTime="3" scanOn="true"></DigitalInputTag>
+  </DigitalInputTags>
+
+  <DigitalOutputTags>
+    <DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" initialValue="500"></DigitalOutputTag>
+    <DigitalOutputTag id="2" description="some desc2" IOAddress="1" driverType="2" initialValue="700"></DigitalOutputTag>
+  </DigitalOutputTags>
+  
+  
+</Tags>
+
+

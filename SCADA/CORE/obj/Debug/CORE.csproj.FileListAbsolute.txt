@@ -1,0 +1,8 @@
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\bin\Debug\CORE.exe.config
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\bin\Debug\CORE.exe
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\bin\Debug\CORE.pdb
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\bin\Debug\Model.dll
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\bin\Debug\Model.pdb
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\obj\Debug\CORE.csprojResolveAssemblyReference.cache
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\obj\Debug\CORE.exe
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\CORE\obj\Debug\CORE.pdb

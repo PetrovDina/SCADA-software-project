@@ -1,0 +1,5 @@
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\Model\bin\Debug\Model.dll
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\Model\bin\Debug\Model.pdb
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\Model\obj\Debug\Model.dll
+C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\Model\obj\Debug\Model.pdb
