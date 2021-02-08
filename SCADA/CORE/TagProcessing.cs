@@ -120,7 +120,7 @@ namespace CORE
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
-                                            new XAttribute("driverType", tag.DriverType),
+                                           new XAttribute("driverType", (int)tag.DriverType),
                                             new XAttribute("scanTime", tag.ScanTime),
                                             new XAttribute("scanOn", tag.ScanOn))); 
 
@@ -131,7 +131,7 @@ namespace CORE
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
-                                            new XAttribute("driverType", tag.DriverType),
+                                           new XAttribute("driverType", (int)tag.DriverType),
                                             new XAttribute("initialValue", tag.InitialValue)));
 
             XElement analogInputTagsElement = new XElement("AnalogInputTags");
@@ -141,7 +141,7 @@ namespace CORE
                                            new XAttribute("id", tag.Id),
                                            new XAttribute("description", tag.Description),
                                            new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", tag.DriverType),
+                                           new XAttribute("driverType", (int)tag.DriverType),
                                            new XAttribute("scanTime", tag.ScanTime),
                                            new XAttribute("scanOn", tag.ScanOn),
                                            new XAttribute("lowLimit", tag.LowLimit),
@@ -157,7 +157,7 @@ namespace CORE
                                            new XAttribute("id", tag.Id),
                                            new XAttribute("description", tag.Description),
                                            new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", tag.DriverType),
+                                           new XAttribute("driverType", (int) tag.DriverType),
                                            new XAttribute("initialValue", tag.InitialValue),
                                            new XAttribute("lowLimit", tag.LowLimit),
                                            new XAttribute("highLimit", tag.HighLimit)));
@@ -169,7 +169,7 @@ namespace CORE
 
             //Console.WriteLine(tagsElement);
             //TODO add write to CORRECT FILE
-            using (var sw = new StreamWriter(TAGS_CONFIG_PATH.Replace(".xml", "2.xml")))
+            using (var sw = new StreamWriter(TAGS_CONFIG_PATH))
             {
                 sw.Write(tagsElement);
             }
