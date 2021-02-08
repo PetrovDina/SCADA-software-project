@@ -19,7 +19,7 @@ namespace CORE
 
         //todo figure out if you really need both:
         public Dictionary<string, double> OutputAddressValues { get; set; }
-        public Dictionary<string, string> OutputTagValues { get; set; }
+        //public Dictionary<string, string> OutputTagValues { get; set; }
 
 
 
@@ -29,7 +29,7 @@ namespace CORE
             TagsDictionary = new Dictionary<string, Tag>();
             ThreadsDictionary = new Dictionary<string, Thread>();
             OutputAddressValues = new Dictionary<string, double>();
-            OutputTagValues = new Dictionary<string, string>();
+            //OutputTagValues = new Dictionary<string, string>();
             
             loadTagsFromXML();
             //saveTagsToXml();
@@ -106,6 +106,8 @@ namespace CORE
             //analogOutputs.ForEach(x => Console.WriteLine(x.ToString()));
             analogOutputs.ForEach(x => TagsDictionary.Add(x.Id, x));
 
+            //todo create threads for each tag from xml
+
 
         }
 
@@ -120,9 +122,11 @@ namespace CORE
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", (int)tag.DriverType),
+                                            new XAttribute("driverType", (int)tag.DriverType),
                                             new XAttribute("scanTime", tag.ScanTime),
-                                            new XAttribute("scanOn", tag.ScanOn))); 
+                                            new XAttribute("scanOn", tag.ScanOn)
+                                            )); 
+
 
             XElement digitalOutputTagsElement = new XElement("DigitalOutputTags");
             List<DigitalOutput> DOtags = TagsDictionary.Values.Where(x => x.GetType() == typeof(DigitalOutput)).Select(x => (DigitalOutput)x).ToList();
@@ -131,8 +135,10 @@ namespace CORE
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", (int)tag.DriverType),
-                                            new XAttribute("initialValue", tag.InitialValue)));
+                                            new XAttribute("driverType", (int)tag.DriverType),
+                                            new XAttribute("initialValue", tag.InitialValue)
+                                            ));
+
 
             XElement analogInputTagsElement = new XElement("AnalogInputTags");
             List<AnalogInput> AItags = TagsDictionary.Values.Where(x => x.GetType() == typeof(AnalogInput)).Select(x => (AnalogInput)x).ToList();
@@ -146,8 +152,8 @@ namespace CORE
                                            new XAttribute("scanOn", tag.ScanOn),
                                            new XAttribute("lowLimit", tag.LowLimit),
                                            new XAttribute("highLimit", tag.HighLimit)
-
                                            ));
+
 
             XElement analogOutputTagsElement = new XElement("AnalogOutputTags");
             List<AnalogOutput> AOtags = TagsDictionary.Values.Where(x => x.GetType() == typeof(AnalogOutput)).Select(x => (AnalogOutput)x).ToList();
@@ -160,7 +166,8 @@ namespace CORE
                                            new XAttribute("driverType", (int) tag.DriverType),
                                            new XAttribute("initialValue", tag.InitialValue),
                                            new XAttribute("lowLimit", tag.LowLimit),
-                                           new XAttribute("highLimit", tag.HighLimit)));
+                                           new XAttribute("highLimit", tag.HighLimit)
+                                           ));
 
             tagsElement.Add(digitalInputTagsElement);
             tagsElement.Add(digitalOutputTagsElement);
@@ -168,27 +175,22 @@ namespace CORE
             tagsElement.Add(analogOutputTagsElement);
 
             //Console.WriteLine(tagsElement);
-            //TODO add write to CORRECT FILE
             using (var sw = new StreamWriter(TAGS_CONFIG_PATH))
             {
                 sw.Write(tagsElement);
             }
 
-
-
-
         }
+
 
         public bool AddTag(Tag t)
         {
-            if (TagsDictionary.ContainsKey(t.Id))
-            {
-                return false;
-            }
+            string newId = (TagsDictionary.Count + 1).ToString();
+            t.Id = newId;
+            TagsDictionary[newId] = t;
 
-            TagsDictionary[t.Id] = t;
-            //todo add thread
-            //todo save changes to config file
+            //todo add checks if values are fine
+            //todo create thread
             saveTagsToXml();
             return true;
 
@@ -241,6 +243,7 @@ namespace CORE
                 return false;
             }
 
+            //fix this
             OutputTag tag = (OutputTag)TagsDictionary[id];
             tag.InitialValue = value;
             return true;
@@ -252,7 +255,7 @@ namespace CORE
 
             foreach (Tag t in TagsDictionary.Values)
             {
-                if (t.GetType() != typeof(OutputTag))
+                if (t.GetType().IsSubclassOf(typeof(OutputTag)))
                 {
                     info += t.ToString() + "\n";
                 }

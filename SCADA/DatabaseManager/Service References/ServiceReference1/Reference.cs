@@ -46,10 +46,10 @@ namespace DatabaseManager.ServiceReference1 {
         System.Threading.Tasks.Task<bool> setOutputTagValueAsync(string id, double value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/showOutputTagValues", ReplyAction="http://tempuri.org/IDatabaseManager/showOutputTagValuesResponse")]
-        void showOutputTagValues();
+        string showOutputTagValues();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/showOutputTagValues", ReplyAction="http://tempuri.org/IDatabaseManager/showOutputTagValuesResponse")]
-        System.Threading.Tasks.Task showOutputTagValuesAsync();
+        System.Threading.Tasks.Task<string> showOutputTagValuesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,11 +111,11 @@ namespace DatabaseManager.ServiceReference1 {
             return base.Channel.setOutputTagValueAsync(id, value);
         }
         
-        public void showOutputTagValues() {
-            base.Channel.showOutputTagValues();
+        public string showOutputTagValues() {
+            return base.Channel.showOutputTagValues();
         }
         
-        public System.Threading.Tasks.Task showOutputTagValuesAsync() {
+        public System.Threading.Tasks.Task<string> showOutputTagValuesAsync() {
             return base.Channel.showOutputTagValuesAsync();
         }
     }

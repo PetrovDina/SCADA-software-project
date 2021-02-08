@@ -25,6 +25,7 @@ namespace CORE
         {
             bool success = TagProcessing.AddTag(t);
             TagProcessing.saveTagsToXml(); //todo remove this line
+
             if (success)
             {
                 Console.WriteLine("Successfully added new tag with id " + t.Id);
@@ -93,10 +94,9 @@ namespace CORE
             return success;
         }
 
-        public void showOutputTagValues()
+        public string showOutputTagValues()
         {
-            string info = TagProcessing.getOutputTagValues();
-            Console.WriteLine(info);
+            return TagProcessing.getOutputTagValues();
         }
     }
 }

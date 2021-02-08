@@ -25,7 +25,7 @@ namespace CORE
         bool setOutputTagValue(string id, double value);
 
         [OperationContract]
-        void showOutputTagValues();
+        string showOutputTagValues();
 
 
     }

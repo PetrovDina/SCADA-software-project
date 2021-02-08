@@ -16,10 +16,9 @@ namespace CORE
             ServiceHost svc = new ServiceHost(typeof(DatabaseManagerService));
             svc.Open();
             Console.WriteLine("Welcome to SCADA");
-
-
             Console.ReadKey();
             svc.Close();
         }
+
     }
 }
