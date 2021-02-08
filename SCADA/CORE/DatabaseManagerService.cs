@@ -24,7 +24,6 @@ namespace CORE
         public bool addTag(Tag t)
         {
             bool success = TagProcessing.AddTag(t);
-            TagProcessing.saveTagsToXml(); //todo remove this line
 
             if (success)
             {
@@ -36,6 +35,7 @@ namespace CORE
                 Console.WriteLine("Tag adding failed. Id: " + t.Id);
 
             }
+
             return success;
         }
 

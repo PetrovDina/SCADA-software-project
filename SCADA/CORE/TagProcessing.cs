@@ -16,10 +16,7 @@ namespace CORE
         public string TAGS_CONFIG_PATH = @"../../scadaConfig.xml";
         public Dictionary<string, Tag> TagsDictionary { get; set; }
         public Dictionary<string, Thread> ThreadsDictionary { get; set; }
-
-        //todo figure out if you really need both:
         public Dictionary<string, double> OutputAddressValues { get; set; }
-        //public Dictionary<string, string> OutputTagValues { get; set; }
 
 
 
@@ -29,7 +26,6 @@ namespace CORE
             TagsDictionary = new Dictionary<string, Tag>();
             ThreadsDictionary = new Dictionary<string, Thread>();
             OutputAddressValues = new Dictionary<string, double>();
-            //OutputTagValues = new Dictionary<string, string>();
             
             loadTagsFromXML();
             //saveTagsToXml();
@@ -37,6 +33,7 @@ namespace CORE
 
         private void loadTagsFromXML()
         {
+
             XElement xmlData = XElement.Load(TAGS_CONFIG_PATH);
             List<DigitalInput> digitalInputs = (from di in xmlData.Descendants("DigitalInputTag")
                                                 select new DigitalInput
@@ -67,7 +64,7 @@ namespace CORE
 
                                                 }).ToList();
 
-            // digitalOutputs.ForEach(x => Console.WriteLine(x.ToString()));
+            digitalOutputs.ForEach(x => OutputAddressValues[x.IOAddress] = x.InitialValue);
             digitalOutputs.ForEach(x => TagsDictionary.Add(x.Id, x));
 
             List<AnalogInput> analogInputs = (from di in xmlData.Descendants("AnalogInputTag")
@@ -103,8 +100,10 @@ namespace CORE
 
                                               }).ToList();
 
-            //analogOutputs.ForEach(x => Console.WriteLine(x.ToString()));
+            analogOutputs.ForEach(x => OutputAddressValues[x.IOAddress] = x.InitialValue);
             analogOutputs.ForEach(x => TagsDictionary.Add(x.Id, x));
+
+            refreshOutputTagValues(); //todo idk if this is redundant
 
             //todo create threads for each tag from xml
 
@@ -189,11 +188,34 @@ namespace CORE
             t.Id = newId;
             TagsDictionary[newId] = t;
 
-            //todo add checks if values are fine
-            //todo create thread
+            //todo check if this logic is okay
+            if (t.GetType().IsSubclassOf(typeof(OutputTag)))
+            {
+                OutputTag ot = (OutputTag)t;
+                Console.WriteLine("value: " + ot.InitialValue);
+                Console.WriteLine("address: " + ot.IOAddress);
+                Console.WriteLine("current value at that address is " + OutputAddressValues[ot.IOAddress]);
+                OutputAddressValues[t.IOAddress] = ot.InitialValue;
+                refreshOutputTagValues();
+      
+
+            }
+
+            //todo create thread if input tag
             saveTagsToXml();
             return true;
 
+        }
+
+        private void refreshOutputTagValues()
+        {
+            //Getting all output tags:
+            List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
+            Console.WriteLine("NUMBER OF OUTPUTS: " + outputTags.Count);
+
+            
+            //Updating their value property
+            outputTags.ForEach(x => x.InitialValue = OutputAddressValues[x.IOAddress]);
         }
 
         public bool RemoveTag(string id)
@@ -205,7 +227,6 @@ namespace CORE
 
             TagsDictionary.Remove(id);
             //todo kill thread
-            //todo save changes to config file
             saveTagsToXml();
             return true;
 
@@ -226,13 +247,13 @@ namespace CORE
 
             InputTag tag = (InputTag) TagsDictionary[id];
             tag.ScanOn = scan;
+            saveTagsToXml();
             return true;
 
         }
 
         internal bool SetOutputTagValue(string id, double value)
         {
-            //TODO FIX!
             if (!TagsDictionary.ContainsKey(id))
             {
                 return false;
@@ -243,9 +264,31 @@ namespace CORE
                 return false;
             }
 
-            //fix this
-            OutputTag tag = (OutputTag)TagsDictionary[id];
-            tag.InitialValue = value;
+            Tag tag = TagsDictionary[id];
+            if (tag.GetType() == typeof(AnalogOutput))
+            {
+                AnalogOutput aot = (AnalogOutput)tag;
+                if (value < aot.LowLimit)
+                {
+                    value = aot.LowLimit;
+                }
+                else if (value > aot.HighLimit)
+                {
+                    value = aot.HighLimit;
+                }
+
+            }
+            else if (tag.GetType() == typeof(DigitalOutput))
+            {
+                //todo da li da uopste dozvolim nesto sto je razlicito od 0 i 1?????????? ne i cao
+                if (value != 0 && value != 1)
+                    return false;
+
+            }
+           
+            OutputAddressValues[tag.IOAddress] = value;
+            refreshOutputTagValues(); //todo what if the new value doesnt fit the leves for another output tag with the same address?
+            saveTagsToXml();
             return true;
         }
 
@@ -257,7 +300,7 @@ namespace CORE
             {
                 if (t.GetType().IsSubclassOf(typeof(OutputTag)))
                 {
-                    info += t.ToString() + "\n";
+                    info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).InitialValue + "\n";
                 }
             }
 

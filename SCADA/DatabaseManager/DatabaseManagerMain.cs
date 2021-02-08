@@ -20,7 +20,6 @@ namespace DatabaseManager
             int option = -1;
             while (option != 0)
             {
-                Console.WriteLine("Pick a number");
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("1. Add new digital input tag");
                 Console.WriteLine("2. Add new digital output tag");
@@ -29,9 +28,11 @@ namespace DatabaseManager
                 Console.WriteLine("5. Read output tag values");
                 Console.WriteLine("6. Delete tag by ID");
                 Console.WriteLine("7. Set input tag scan on/off");
+                Console.WriteLine("8. Set output tag value");
 
                 Console.WriteLine("-------------------------------------");
-                bool success = Int32.TryParse(Console.ReadLine(), out option);
+                Console.WriteLine("Pick a number: ");
+                bool success = int.TryParse(Console.ReadLine(), out option);
 
                 if (success)
                 {
@@ -58,12 +59,41 @@ namespace DatabaseManager
                         case 7:
                             setTagScan();
                             break;
+                        case 8:
+                            setOutputValue();
+                            break;
                     }
                 }
             }
 
 
             Console.ReadKey();
+
+        }
+
+        private static void setOutputValue()
+        {
+            Console.WriteLine("Enter output tag id for value: ");
+            string id = Console.ReadLine();
+
+            Console.WriteLine("Enter new value: ");
+            double value = -1;
+            double.TryParse(Console.ReadLine(), out value);
+            if (value == -1)
+            {
+                Console.WriteLine("Bad value");
+                return;
+            }
+
+            bool success = proxy.setOutputTagValue(id, value);
+            if (success)
+            {
+                Console.WriteLine("Successfully changed value");
+            }
+            else
+            {
+                Console.WriteLine("Failed to change output tag value");
+            }
 
         }
 
@@ -203,7 +233,7 @@ namespace DatabaseManager
             Console.WriteLine("Enter scanTime: ");
             int scanTime = -1;
             int.TryParse(Console.ReadLine(), out scanTime);
-            if (scanTime < 0)
+            if (scanTime <= 0)
             {
                 Console.WriteLine("Bad seconds!");
                 return;
@@ -314,7 +344,8 @@ namespace DatabaseManager
             Console.WriteLine("Enter scanTime: ");
             int scanTime = -1;
             int.TryParse(Console.ReadLine(), out scanTime);
-            if (scanTime < 0)
+            Console.WriteLine("Entered scan time is: " + scanTime);
+            if (scanTime <= 0)
             {
                 Console.WriteLine("Bad seconds!");
                 return;
