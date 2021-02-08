@@ -13,7 +13,7 @@ namespace CORE
     {
         static void Main(string[] args)
         {
-            ServiceHost svc = new ServiceHost(typeof(Service));
+            ServiceHost svc = new ServiceHost(typeof(DatabaseManagerService));
             svc.Open();
             Console.WriteLine("Welcome to SCADA");
 

@@ -15,7 +15,7 @@ namespace DatabaseManager
             DatabaseManagerClient proxy = new DatabaseManagerClient();
             DigitalOutput digo = new DigitalOutput
             {
-                Id = "1",
+                Id = "666",
                 Description = "Some desc",
                 DriverType = DriverType.SIMULATION,
                 IOAddress = "0",
@@ -26,8 +26,8 @@ namespace DatabaseManager
 
             proxy.addTag(digo);
             proxy.showOutputTagValues();
-            proxy.setOutputTagValue(digo.Id, 666);
-            proxy.showOutputTagValues();
+            //proxy.setOutputTagValue(digo.Id, 666);
+            //proxy.showOutputTagValues();
             proxy.removeTag(digo.Id);
             Console.ReadKey();
 

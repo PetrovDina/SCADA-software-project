@@ -1,14 +1,25 @@
 ﻿
 <Tags>
   <DigitalInputTags>
-      <DigitalInputTag id="1" description="some desc" IOAddress="0" driverType="1" scanTime="2" scanOn="true"></DigitalInputTag>
-      <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="2" scanTime="3" scanOn="true"></DigitalInputTag>
+      <DigitalInputTag id="1" description="some desc" IOAddress="0" driverType="0" scanTime="2" scanOn="true"></DigitalInputTag>
+      <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="1" scanTime="3" scanOn="true"></DigitalInputTag>
   </DigitalInputTags>
 
   <DigitalOutputTags>
-    <DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" initialValue="500"></DigitalOutputTag>
-    <DigitalOutputTag id="2" description="some desc2" IOAddress="1" driverType="2" initialValue="700"></DigitalOutputTag>
+    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="0" initialValue="500"></DigitalOutputTag>
+    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" initialValue="700"></DigitalOutputTag>
   </DigitalOutputTags>
+  
+  <AnalogInputTags>
+    <AnalogInputTag id="5" description="some desc3" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="0" highLimit="100"></AnalogInputTag>
+    <AnalogInputTag id="6" description="some desc6" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="10" highLimit="80"></AnalogInputTag>
+    <AnalogInputTag id="7" description="some desc7" IOAddress="1" driverType="1" scanTime="2" scanOn="true" lowLimit="5" highLimit="90"></AnalogInputTag>
+  </AnalogInputTags>
+  
+  <AnalogOutputTags>
+    <AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="1" initialValue ="50" lowLimit="0" highLimit="100"></AnalogOutputTag>
+    <AnalogOutputTag id="9" description="some desc3" IOAddress="0" driverType="1" initialValue ="10" lowLimit="0" highLimit="100"></AnalogOutputTag>
+  </AnalogOutputTags>
   
   
 </Tags>

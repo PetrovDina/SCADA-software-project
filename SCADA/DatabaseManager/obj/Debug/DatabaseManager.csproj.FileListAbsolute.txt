@@ -1,8 +1,0 @@
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\bin\Debug\DatabaseManager.exe.config
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\bin\Debug\DatabaseManager.exe
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\bin\Debug\DatabaseManager.pdb
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\obj\Debug\DatabaseManager.csprojResolveAssemblyReference.cache
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\obj\Debug\DatabaseManager.exe
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\obj\Debug\DatabaseManager.pdb
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\bin\Debug\Model.dll
-C:\Users\lazyd\OneDrive\Desktop\F A K S\3. godina\SNUS\Vezbe\Vezba za klk 2\SCADA\DatabaseManager\bin\Debug\Model.pdb

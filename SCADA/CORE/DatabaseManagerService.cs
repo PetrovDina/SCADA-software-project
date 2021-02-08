@@ -7,11 +7,11 @@ using Model;
 
 namespace CORE
 {
-    class Service : IDatabaseManager {
+    class DatabaseManagerService : IDatabaseManager {
 
         public static TagProcessing TagProcessing { get; set; }
 
-        public Service()
+        public DatabaseManagerService()
         {
             if (TagProcessing == null)
             {
@@ -24,7 +24,7 @@ namespace CORE
         public bool addTag(Tag t)
         {
             bool success = TagProcessing.AddTag(t);
-
+            TagProcessing.saveTagsToXml(); //todo remove this line
             if (success)
             {
                 Console.WriteLine("Successfully added new tag with id " + t.Id);

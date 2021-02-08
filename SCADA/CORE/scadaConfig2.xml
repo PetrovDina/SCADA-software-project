@@ -1,0 +1,19 @@
+<tags>
+  <DigitalInputTags>
+    <DigitalInputTag id="1" description="some desc" IOAddress="0" driverType="SIMULATION" scanTime="2" scanOn="true" />
+    <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="REAL_TIME" scanTime="3" scanOn="true" />
+  </DigitalInputTags>
+  <DigitalOutputTags>
+    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="SIMULATION" initialValue="500" />
+    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="REAL_TIME" initialValue="700" />
+  </DigitalOutputTags>
+  <AnalogInputTags>
+    <AnalogInputTag id="5" description="some desc3" IOAddress="0" driverType="REAL_TIME" scanTime="2" scanOn="true" lowLimit="0" highLimit="100" />
+    <AnalogInputTag id="6" description="some desc6" IOAddress="0" driverType="REAL_TIME" scanTime="2" scanOn="true" lowLimit="10" highLimit="80" />
+    <AnalogInputTag id="7" description="some desc7" IOAddress="1" driverType="REAL_TIME" scanTime="2" scanOn="true" lowLimit="5" highLimit="90" />
+  </AnalogInputTags>
+  <AnalogOutputTags>
+    <AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="REAL_TIME" initialValue="50" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="9" description="some desc3" IOAddress="0" driverType="REAL_TIME" initialValue="10" lowLimit="0" highLimit="100" />
+  </AnalogOutputTags>
+</tags>
