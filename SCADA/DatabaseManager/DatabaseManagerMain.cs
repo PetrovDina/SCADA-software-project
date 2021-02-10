@@ -18,6 +18,7 @@ namespace DatabaseManager
             proxy = new DatabaseManagerClient();
 
             int option = -1;
+
             while (option != 0)
             {
                 Console.WriteLine("-------------------------------------");

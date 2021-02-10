@@ -26,9 +26,8 @@ namespace CORE
             TagsDictionary = new Dictionary<string, Tag>();
             ThreadsDictionary = new Dictionary<string, Thread>();
             OutputAddressValues = new Dictionary<string, double>();
-            
+
             loadTagsFromXML();
-            //saveTagsToXml();
         }
 
         private void loadTagsFromXML()
@@ -49,63 +48,57 @@ namespace CORE
 
                                                 }).ToList();
 
-            //digitalInputs.ForEach(x => Console.WriteLine(x.ToString()));
-            digitalInputs.ForEach(x => TagsDictionary.Add(x.Id, x));
+            digitalInputs.ForEach(x => AddTag(x));
 
             List<DigitalOutput> digitalOutputs = (from di in xmlData.Descendants("DigitalOutputTag")
-                                                select new DigitalOutput
-                                                {
-                                                    //<DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" initialValue="500"></DigitalOutputTag>
-                                                    Id = (string)di.Attribute("id"),
-                                                    Description = (string)di.Attribute("description"),
-                                                    IOAddress = (string)di.Attribute("IOAddress"),
-                                                    DriverType = (DriverType)(int)di.Attribute("driverType"),
-                                                    InitialValue = (double)di.Attribute("initialValue"),
-
-                                                }).ToList();
-
-            digitalOutputs.ForEach(x => OutputAddressValues[x.IOAddress] = x.InitialValue);
-            digitalOutputs.ForEach(x => TagsDictionary.Add(x.Id, x));
-
-            List<AnalogInput> analogInputs = (from di in xmlData.Descendants("AnalogInputTag")
-                                                  select new AnalogInput
+                                                  select new DigitalOutput
                                                   {
-                                                      //<AnalogInputTag id="5" description="some desc3" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="0" highLimit="100"></AnalogInputTag>                 
+                                                      //<DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" initialValue="500"></DigitalOutputTag>
                                                       Id = (string)di.Attribute("id"),
                                                       Description = (string)di.Attribute("description"),
                                                       IOAddress = (string)di.Attribute("IOAddress"),
                                                       DriverType = (DriverType)(int)di.Attribute("driverType"),
-                                                      ScanTime = (int)di.Attribute("scanTime"),
-                                                      ScanOn = (bool)di.Attribute("scanOn"),
-                                                      LowLimit = (double)di.Attribute("lowLimit"),
-                                                      HighLimit = (double)di.Attribute("highLimit"),
+                                                      InitialValue = (double)di.Attribute("initialValue"),
 
                                                   }).ToList();
 
-            //analogInputs.ForEach(x => Console.WriteLine(x.ToString()));
-            analogInputs.ForEach(x => TagsDictionary.Add(x.Id, x));
+            digitalOutputs.ForEach(x => AddTag(x));
 
-            List<AnalogOutput> analogOutputs = (from di in xmlData.Descendants("AnalogOutputTag")
-                                              select new AnalogOutput
+
+            List<AnalogInput> analogInputs = (from di in xmlData.Descendants("AnalogInputTag")
+                                              select new AnalogInput
                                               {
-                                                  //<AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="1" initialValue ="50" lowLimit="0" highLimit="100"></AnalogOutputTag>
-
+                                                  //<AnalogInputTag id="5" description="some desc3" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="0" highLimit="100"></AnalogInputTag>                 
                                                   Id = (string)di.Attribute("id"),
                                                   Description = (string)di.Attribute("description"),
                                                   IOAddress = (string)di.Attribute("IOAddress"),
                                                   DriverType = (DriverType)(int)di.Attribute("driverType"),
-                                                  InitialValue = (double)di.Attribute("initialValue"),
+                                                  ScanTime = (int)di.Attribute("scanTime"),
+                                                  ScanOn = (bool)di.Attribute("scanOn"),
                                                   LowLimit = (double)di.Attribute("lowLimit"),
                                                   HighLimit = (double)di.Attribute("highLimit"),
 
                                               }).ToList();
 
-            analogOutputs.ForEach(x => OutputAddressValues[x.IOAddress] = x.InitialValue);
-            analogOutputs.ForEach(x => TagsDictionary.Add(x.Id, x));
+            analogInputs.ForEach(x => AddTag(x));
 
-            refreshOutputTagValues(); //todo idk if this is redundant
+            List<AnalogOutput> analogOutputs = (from di in xmlData.Descendants("AnalogOutputTag")
+                                                select new AnalogOutput
+                                                {
+                                                    //<AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="1" initialValue ="50" lowLimit="0" highLimit="100"></AnalogOutputTag>
 
-            //todo create threads for each tag from xml
+                                                    Id = (string)di.Attribute("id"),
+                                                    Description = (string)di.Attribute("description"),
+                                                    IOAddress = (string)di.Attribute("IOAddress"),
+                                                    DriverType = (DriverType)(int)di.Attribute("driverType"),
+                                                    InitialValue = (double)di.Attribute("initialValue"),
+                                                    LowLimit = (double)di.Attribute("lowLimit"),
+                                                    HighLimit = (double)di.Attribute("highLimit"),
+
+                                                }).ToList();
+
+            analogOutputs.ForEach(x => AddTag(x));
+
 
 
         }
@@ -115,16 +108,16 @@ namespace CORE
             XElement tagsElement = new XElement("tags");
 
             XElement digitalInputTagsElement = new XElement("DigitalInputTags");
-            List<DigitalInput> DItags = TagsDictionary.Values.Where(x => x.GetType() == typeof(DigitalInput)).Select(x => (DigitalInput) x).ToList();
+            List<DigitalInput> DItags = TagsDictionary.Values.Where(x => x.GetType() == typeof(DigitalInput)).Select(x => (DigitalInput)x).ToList();
             digitalInputTagsElement.Add(from tag in DItags
-                                        select new XElement("DigitalInputTag", 
+                                        select new XElement("DigitalInputTag",
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
                                             new XAttribute("driverType", (int)tag.DriverType),
                                             new XAttribute("scanTime", tag.ScanTime),
                                             new XAttribute("scanOn", tag.ScanOn)
-                                            )); 
+                                            ));
 
 
             XElement digitalOutputTagsElement = new XElement("DigitalOutputTags");
@@ -162,7 +155,7 @@ namespace CORE
                                            new XAttribute("id", tag.Id),
                                            new XAttribute("description", tag.Description),
                                            new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", (int) tag.DriverType),
+                                           new XAttribute("driverType", (int)tag.DriverType),
                                            new XAttribute("initialValue", tag.InitialValue),
                                            new XAttribute("lowLimit", tag.LowLimit),
                                            new XAttribute("highLimit", tag.HighLimit)
@@ -184,6 +177,7 @@ namespace CORE
 
         public bool AddTag(Tag t)
         {
+            //todo maybe check if id is none first to prevent possible clashes with xml ids
             string newId = (TagsDictionary.Count + 1).ToString();
             t.Id = newId;
             TagsDictionary[newId] = t;
@@ -192,27 +186,72 @@ namespace CORE
             if (t.GetType().IsSubclassOf(typeof(OutputTag)))
             {
                 OutputTag ot = (OutputTag)t;
-                Console.WriteLine("value: " + ot.InitialValue);
-                Console.WriteLine("address: " + ot.IOAddress);
-                Console.WriteLine("current value at that address is " + OutputAddressValues[ot.IOAddress]);
                 OutputAddressValues[t.IOAddress] = ot.InitialValue;
                 refreshOutputTagValues();
-      
+
 
             }
 
-            //todo create thread if input tag
             saveTagsToXml();
+
+            //Create thread if it's an input tag
+            if (t is AnalogInput || t is DigitalInput)
+            {
+                Thread thread = new Thread(new ParameterizedThreadStart(inputTagWork));
+                ThreadsDictionary[t.Id] = thread;
+                thread.Start(t.Id);
+            }
+
             return true;
 
         }
 
+        private void inputTagWork(object o)
+        {
+            string id = (string)o;
+            Tag t = TagsDictionary[id];
+
+            if (!t.GetType().IsSubclassOf(typeof(InputTag)))
+            {
+                Console.WriteLine("Wrong tag type for thread!");
+                return;
+            }
+
+            InputTag itag = (InputTag)t;
+            double value = 0;
+
+            while (true)
+            {
+                //if scan is off, we dont write them to trending
+                //todo but do we read values anyway?? for the part 2 database? PROBABLY! FIX THIS!
+                if (!itag.ScanOn)
+                {
+                    Thread.Sleep(itag.ScanTime);
+                    continue;
+                }
+
+                if (itag.DriverType == DriverType.SIMULATION)
+                {
+                    value = SimulationDriver.ReturnValue(itag.IOAddress);
+                    //todo make value in limit range
+                    //todo INVOKE EVENT
+
+                    Thread.Sleep(itag.ScanTime);
+
+                }
+
+                //todo runtime simulation
+                return;
+
+
+
+            }
+
+        }
         private void refreshOutputTagValues()
         {
             //Getting all output tags:
             List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
-            Console.WriteLine("NUMBER OF OUTPUTS: " + outputTags.Count);
-
             
             //Updating their value property
             outputTags.ForEach(x => x.InitialValue = OutputAddressValues[x.IOAddress]);
