@@ -10,27 +10,24 @@ using System.Xml.Linq;
 
 namespace CORE
 {
-    public class TagProcessing
+    public static class TagProcessing
     {
 
-        public string TAGS_CONFIG_PATH = @"../../scadaConfig.xml";
-        public Dictionary<string, Tag> TagsDictionary { get; set; }
-        public Dictionary<string, Thread> ThreadsDictionary { get; set; }
-        public Dictionary<string, double> OutputAddressValues { get; set; }
+        public static string TAGS_CONFIG_PATH = @"../../scadaConfig.xml";
+        public static Dictionary<string, Tag> TagsDictionary = new Dictionary<string, Tag>();
+        public static Dictionary<string, Thread> ThreadsDictionary = new Dictionary<string, Thread>();
+        public static Dictionary<string, double> OutputAddressValues = new Dictionary<string, double>();
 
+        public delegate void ValueDelegate(Tag t, double value, DateTime time);
+        public static event ValueDelegate onValueRead = null;
 
-
-        public TagProcessing()
+        static TagProcessing()
         {
-
-            TagsDictionary = new Dictionary<string, Tag>();
-            ThreadsDictionary = new Dictionary<string, Thread>();
-            OutputAddressValues = new Dictionary<string, double>();
 
             loadTagsFromXML();
         }
 
-        private void loadTagsFromXML()
+        private static void loadTagsFromXML()
         {
 
             XElement xmlData = XElement.Load(TAGS_CONFIG_PATH);
@@ -103,7 +100,7 @@ namespace CORE
 
         }
 
-        public void saveTagsToXml()
+        public static void saveTagsToXml()
         {
             XElement tagsElement = new XElement("tags");
 
@@ -175,7 +172,7 @@ namespace CORE
         }
 
 
-        public bool AddTag(Tag t)
+        public static bool AddTag(Tag t)
         {
             //todo maybe check if id is none first to prevent possible clashes with xml ids
             string newId = (TagsDictionary.Count + 1).ToString();
@@ -206,7 +203,7 @@ namespace CORE
 
         }
 
-        private void inputTagWork(object o)
+        private static void inputTagWork(object o)
         {
             string id = (string)o;
             Tag t = TagsDictionary[id];
@@ -235,6 +232,7 @@ namespace CORE
                     value = SimulationDriver.ReturnValue(itag.IOAddress);
                     //todo make value in limit range
                     //todo INVOKE EVENT
+                    onValueRead?.Invoke(itag, value, DateTime.Now);
 
                     Thread.Sleep(itag.ScanTime);
 
@@ -248,7 +246,7 @@ namespace CORE
             }
 
         }
-        private void refreshOutputTagValues()
+        private static void refreshOutputTagValues()
         {
             //Getting all output tags:
             List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
@@ -257,7 +255,7 @@ namespace CORE
             outputTags.ForEach(x => x.InitialValue = OutputAddressValues[x.IOAddress]);
         }
 
-        public bool RemoveTag(string id)
+        public static bool RemoveTag(string id)
         {
             if (!TagsDictionary.ContainsKey(id))
             {
@@ -271,7 +269,7 @@ namespace CORE
 
         }
 
-        public bool SetTagScan(string id, bool scan)
+        public static bool SetTagScan(string id, bool scan)
         {
 
             if (!TagsDictionary.ContainsKey(id))
@@ -291,7 +289,7 @@ namespace CORE
 
         }
 
-        internal bool SetOutputTagValue(string id, double value)
+        internal static bool SetOutputTagValue(string id, double value)
         {
             if (!TagsDictionary.ContainsKey(id))
             {
@@ -331,7 +329,7 @@ namespace CORE
             return true;
         }
 
-        internal string getOutputTagValues()
+        internal static string getOutputTagValues()
         {
             String info = "-------Output Tag values--------\n";
 

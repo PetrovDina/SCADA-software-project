@@ -9,14 +9,10 @@ namespace CORE
 {
     class DatabaseManagerService : IDatabaseManager {
 
-        public static TagProcessing TagProcessing { get; set; }
 
         public DatabaseManagerService()
         {
-            if (TagProcessing == null)
-            {
-                TagProcessing = new TagProcessing();
-            }
+
 
         }
     

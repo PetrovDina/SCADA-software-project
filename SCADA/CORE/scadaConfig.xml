@@ -2,21 +2,22 @@
   <DigitalInputTags>
     <DigitalInputTag id="1" description="some desc" IOAddress="0" driverType="0" scanTime="2" scanOn="true" />
     <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="1" scanTime="3" scanOn="true" />
-    <DigitalInputTag id="12" description="hello" IOAddress="0" driverType="0" scanTime="3" scanOn="true" />
+    <DigitalInputTag id="3" description="hello" IOAddress="0" driverType="0" scanTime="3" scanOn="true" />
+    <DigitalInputTag id="4" description="hello again" IOAddress="1" driverType="0" scanTime="2" scanOn="false" />
   </DigitalInputTags>
   <DigitalOutputTags>
-    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="0" initialValue="0" />
-    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" initialValue="0" />
-    <DigitalOutputTag id="5" description="some desc2" IOAddress="1" driverType="1" initialValue="0" />
+    <DigitalOutputTag id="5" description="some desc" IOAddress="0" driverType="0" initialValue="0" />
+    <DigitalOutputTag id="6" description="some desc2" IOAddress="1" driverType="1" initialValue="0" />
+    <DigitalOutputTag id="7" description="some desc2" IOAddress="1" driverType="1" initialValue="0" />
   </DigitalOutputTags>
   <AnalogInputTags>
-    <AnalogInputTag id="6" description="some desc3" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="0" highLimit="100" />
-    <AnalogInputTag id="7" description="some desc6" IOAddress="0" driverType="1" scanTime="2" scanOn="true" lowLimit="10" highLimit="80" />
-    <AnalogInputTag id="8" description="some desc7" IOAddress="1" driverType="1" scanTime="2" scanOn="true" lowLimit="5" highLimit="90" />
+    <AnalogInputTag id="8" description="some desc3" IOAddress="0" driverType="0" scanTime="2" scanOn="true" lowLimit="0" highLimit="100" />
+    <AnalogInputTag id="9" description="some desc6" IOAddress="0" driverType="0" scanTime="2" scanOn="true" lowLimit="10" highLimit="80" />
+    <AnalogInputTag id="10" description="some desc7" IOAddress="1" driverType="0" scanTime="2" scanOn="true" lowLimit="5" highLimit="90" />
   </AnalogInputTags>
   <AnalogOutputTags>
-    <AnalogOutputTag id="9" description="some desc3" IOAddress="3" driverType="1" initialValue="22" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="10" description="some desc3" IOAddress="3" driverType="1" initialValue="22" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="11" description="some desc3" IOAddress="4" driverType="1" initialValue="60" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="11" description="some desc3" IOAddress="3" driverType="1" initialValue="22" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="12" description="some desc3" IOAddress="3" driverType="1" initialValue="22" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="13" description="some desc3" IOAddress="4" driverType="1" initialValue="60" lowLimit="0" highLimit="100" />
   </AnalogOutputTags>
 </tags>
