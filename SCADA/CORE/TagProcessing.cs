@@ -174,10 +174,14 @@ namespace CORE
 
         public static bool AddTag(Tag t)
         {
-            //todo maybe check if id is none first to prevent possible clashes with xml ids
-            string newId = (TagsDictionary.Count + 1).ToString();
-            t.Id = newId;
-            TagsDictionary[newId] = t;
+
+            if (t.Id == null)
+            {
+                string newId = (TagsDictionary.Count + 1).ToString();
+                t.Id = newId;
+            }
+            
+            TagsDictionary[t.Id] = t;
 
             //todo check if this logic is okay
             if (t.GetType().IsSubclassOf(typeof(OutputTag)))
@@ -219,29 +223,62 @@ namespace CORE
 
             while (true)
             {
-                //if scan is off, we dont write them to trending
-                //todo but do we read values anyway?? for the part 2 database? PROBABLY! FIX THIS!
-                if (!itag.ScanOn)
-                {
-                    Thread.Sleep(itag.ScanTime);
-                    continue;
-                }
 
                 if (itag.DriverType == DriverType.SIMULATION)
                 {
                     value = SimulationDriver.ReturnValue(itag.IOAddress);
-                    //todo make value in limit range
-                    //todo INVOKE EVENT
-                    onValueRead?.Invoke(itag, value, DateTime.Now);
-
-                    Thread.Sleep(itag.ScanTime);
 
                 }
 
-                //todo runtime simulation
-                return;
+                else
+                {
+                    //todo runtime simulation
+                }
+
+                if (t is AnalogInput)
+                {
+                    AnalogInput ait = (AnalogInput)t;
+                    if (value < ait.LowLimit)
+                    {
+                        value = ait.LowLimit;
+                    }
+                    else if (value > ait.HighLimit)
+                    {
+                        value = ait.HighLimit;
+                    }
+                }
+
+                else if (t is DigitalInput)
+                {
+                    if (value <= 0)
+                    {
+                        value = 0;
+                    }
+                    else if (value >= 1)
+                    {
+                        value = 1;
+                    }
+                    else if (value <= 0.5)
+                    {
+                        value = 0;
+                    }
+                    else
+                    {
+                        value = 1;
+                    }
+                }
 
 
+                if (!itag.ScanOn)
+                {
+                    //todo read and save value to database but dont invoke trending app
+                    Thread.Sleep(itag.ScanTime * 1000);
+                    continue;
+                }
+
+                onValueRead?.Invoke(itag, value, DateTime.Now);
+
+                Thread.Sleep(itag.ScanTime * 1000);
 
             }
 
@@ -263,7 +300,7 @@ namespace CORE
             }
 
             TagsDictionary.Remove(id);
-            //todo kill thread
+            ThreadsDictionary[id].Abort();
             saveTagsToXml();
             return true;
 
