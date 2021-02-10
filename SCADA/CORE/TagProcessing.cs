@@ -50,12 +50,12 @@ namespace CORE
             List<DigitalOutput> digitalOutputs = (from di in xmlData.Descendants("DigitalOutputTag")
                                                   select new DigitalOutput
                                                   {
-                                                      //<DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" initialValue="500"></DigitalOutputTag>
+                                                      //<DigitalOutputTag id="1" description="some desc" IOAddress="0" driverType="1" value="500"></DigitalOutputTag>
                                                       Id = (string)di.Attribute("id"),
                                                       Description = (string)di.Attribute("description"),
                                                       IOAddress = (string)di.Attribute("IOAddress"),
                                                       DriverType = (DriverType)(int)di.Attribute("driverType"),
-                                                      InitialValue = (double)di.Attribute("initialValue"),
+                                                      value = (double)di.Attribute("value"),
 
                                                   }).ToList();
 
@@ -82,13 +82,13 @@ namespace CORE
             List<AnalogOutput> analogOutputs = (from di in xmlData.Descendants("AnalogOutputTag")
                                                 select new AnalogOutput
                                                 {
-                                                    //<AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="1" initialValue ="50" lowLimit="0" highLimit="100"></AnalogOutputTag>
+                                                    //<AnalogOutputTag id="8" description="some desc3" IOAddress="0" driverType="1" value ="50" lowLimit="0" highLimit="100"></AnalogOutputTag>
 
                                                     Id = (string)di.Attribute("id"),
                                                     Description = (string)di.Attribute("description"),
                                                     IOAddress = (string)di.Attribute("IOAddress"),
                                                     DriverType = (DriverType)(int)di.Attribute("driverType"),
-                                                    InitialValue = (double)di.Attribute("initialValue"),
+                                                    value = (double)di.Attribute("value"),
                                                     LowLimit = (double)di.Attribute("lowLimit"),
                                                     HighLimit = (double)di.Attribute("highLimit"),
 
@@ -125,7 +125,7 @@ namespace CORE
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
                                             new XAttribute("driverType", (int)tag.DriverType),
-                                            new XAttribute("initialValue", tag.InitialValue)
+                                            new XAttribute("value", tag.value)
                                             ));
 
 
@@ -153,7 +153,7 @@ namespace CORE
                                            new XAttribute("description", tag.Description),
                                            new XAttribute("IOAddress", tag.IOAddress),
                                            new XAttribute("driverType", (int)tag.DriverType),
-                                           new XAttribute("initialValue", tag.InitialValue),
+                                           new XAttribute("value", tag.value),
                                            new XAttribute("lowLimit", tag.LowLimit),
                                            new XAttribute("highLimit", tag.HighLimit)
                                            ));
@@ -187,7 +187,7 @@ namespace CORE
             if (t.GetType().IsSubclassOf(typeof(OutputTag)))
             {
                 OutputTag ot = (OutputTag)t;
-                OutputAddressValues[t.IOAddress] = ot.InitialValue;
+                OutputAddressValues[t.IOAddress] = ot.value;
                 refreshOutputTagValues();
 
 
@@ -258,7 +258,7 @@ namespace CORE
                     {
                         value = 1;
                     }
-                    else if (value <= 0.5)
+                    else if (value < 0.5)
                     {
                         value = 0;
                     }
@@ -289,7 +289,7 @@ namespace CORE
             List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
             
             //Updating their value property
-            outputTags.ForEach(x => x.InitialValue = OutputAddressValues[x.IOAddress]);
+            outputTags.ForEach(x => x.value = OutputAddressValues[x.IOAddress]);
         }
 
         public static bool RemoveTag(string id)
@@ -374,7 +374,7 @@ namespace CORE
             {
                 if (t.GetType().IsSubclassOf(typeof(OutputTag)))
                 {
-                    info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).InitialValue + "\n";
+                    info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).value + "\n";
                 }
             }
 

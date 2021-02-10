@@ -14,16 +14,16 @@ namespace Model
     public abstract class OutputTag : Tag
     {
         [DataMember]
-        public double InitialValue { get; set; }
+        public double value { get; set; }
 
         //public OutputTag(string id, string desc, string addr, DriverType dt, double initial) : base(id, desc, addr, dt)
         //{
-        //    this.InitialValue = initial;
+        //    this.value = initial;
         //}
 
         public override string ToString()
         {
-            return base.ToString() + $" InitialValue: {InitialValue}";
+            return base.ToString() + $" value: {value}";
         }
 
 

@@ -58,7 +58,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Tag">
         <xs:sequence>
-          <xs:element minOccurs="0" name="InitialValue" type="xs:double" />
+          <xs:element minOccurs="0" name="
+                      Value" type="xs:double" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

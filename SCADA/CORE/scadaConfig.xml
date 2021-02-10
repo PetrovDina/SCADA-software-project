@@ -4,17 +4,18 @@
     <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="1" scanTime="5" scanOn="true" />
   </DigitalInputTags>
   <DigitalOutputTags>
-    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="0" initialValue="20" />
-    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" initialValue="24" />
-    <DigitalOutputTag id="5" description="some desc2" IOAddress="1" driverType="1" initialValue="24" />
+    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="0" value="2" />
+    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" value="24" />
+    <DigitalOutputTag id="5" description="some desc2" IOAddress="1" driverType="1" value="24" />
   </DigitalOutputTags>
   <AnalogInputTags>
     <AnalogInputTag id="6" description="some desc3" IOAddress="2" driverType="0" scanTime="15" scanOn="true" lowLimit="0" highLimit="5" />
     <AnalogInputTag id="7" description="some desc6" IOAddress="0" driverType="0" scanTime="20" scanOn="true" lowLimit="0" highLimit="8" />
   </AnalogInputTags>
   <AnalogOutputTags>
-    <AnalogOutputTag id="8" description="some desc3" IOAddress="3" driverType="1" initialValue="20" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="9" description="some desc3" IOAddress="3" driverType="1" initialValue="20" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="10" description="some desc3" IOAddress="4" driverType="1" initialValue="60" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="8" description="some desc3" IOAddress="3" driverType="1" value="20" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="9" description="some desc3" IOAddress="3" driverType="1" value="20" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="10" description="some desc3" IOAddress="4" driverType="1" value="60" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="11" description="proba" IOAddress="0" driverType="0" value="2" lowLimit="0" highLimit="3" />
   </AnalogOutputTags>
 </tags>

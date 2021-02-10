@@ -204,7 +204,7 @@ namespace DatabaseManager
                 Description = description,
                 IOAddress = IOAddress,
                 DriverType = (DriverType)driverTypeInt,
-                InitialValue = initialValue,
+                value = initialValue,
                 LowLimit = lowLimit,
                 HighLimit = highLimit
             };
@@ -318,7 +318,7 @@ namespace DatabaseManager
                 Description = description,
                 IOAddress = IOAddress,
                 DriverType = (DriverType)driverTypeInt,
-                InitialValue = initialValue
+                value = initialValue
             };
 
             proxy.addTag(tag);
