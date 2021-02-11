@@ -27,6 +27,9 @@ namespace CORE
         [OperationContract]
         string showOutputTagValues();
 
+        [OperationContract]
+        bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority);
+
 
     }
 }

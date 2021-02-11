@@ -58,8 +58,7 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Tag">
         <xs:sequence>
-          <xs:element minOccurs="0" name="
-                      Value" type="xs:double" />
+          <xs:element minOccurs="0" name="value" type="xs:double" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -76,4 +75,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="AnalogOutput" nillable="true" type="tns:AnalogOutput" />
+  <xs:simpleType name="AlarmType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW_LIMIT" />
+      <xs:enumeration value="HIGH_LIMIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AlarmType" nillable="true" type="tns:AlarmType" />
+  <xs:simpleType name="AlarmPriority">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW" />
+      <xs:enumeration value="MEDIUM" />
+      <xs:enumeration value="HIGH" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AlarmPriority" nillable="true" type="tns:AlarmPriority" />
 </xs:schema>

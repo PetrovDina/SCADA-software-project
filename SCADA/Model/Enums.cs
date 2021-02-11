@@ -11,5 +11,14 @@ namespace Model
     {
         SIMULATION, REAL_TIME
     }
-    
+
+    public enum AlarmType
+    {
+        LOW_LIMIT, HIGH_LIMIT
+    }
+
+    public enum AlarmPriority
+    {
+        LOW = 1, MEDIUM, HIGH
+    }
 }

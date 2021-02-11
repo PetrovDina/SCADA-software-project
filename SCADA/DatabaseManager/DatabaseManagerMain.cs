@@ -30,6 +30,7 @@ namespace DatabaseManager
                 Console.WriteLine("6. Delete tag by ID");
                 Console.WriteLine("7. Set input tag scan on/off");
                 Console.WriteLine("8. Set output tag value");
+                Console.WriteLine("9. Add alarm");
 
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("Pick a number: ");
@@ -63,12 +64,64 @@ namespace DatabaseManager
                         case 8:
                             setOutputValue();
                             break;
+                        case 9:
+                            addAlarm();
+                            break;
                     }
                 }
             }
 
 
             Console.ReadKey();
+
+        }
+
+        private static void addAlarm()
+        {
+            Console.WriteLine("Enter input tag id for alarm: ");
+            string id = Console.ReadLine();
+
+            int option = -1;
+            Console.WriteLine("Enter 1 for high alarm type or 0 for low alarm type");
+            bool parsed = int.TryParse(Console.ReadLine(), out option);
+
+            if ( !parsed || (option != 0 && option != 1))
+            {
+                Console.WriteLine("Incorrect input for alarm type!");
+                return;
+            }
+
+        
+            double limit = -1;
+            Console.WriteLine("Enter alarm limit");
+            bool parsedDouble = Double.TryParse(Console.ReadLine(), out limit);
+
+            if (!parsedDouble )
+            {
+                Console.WriteLine("Incorrect input for alarm limit!");
+                return;
+            }
+
+            int priority = -1;
+            Console.WriteLine("Enter alarm priority: 1, 2, 3");
+            bool parsedPriority = int.TryParse(Console.ReadLine(), out priority);
+
+            if (!parsedPriority || (priority != 1 && priority != 2 && priority != 3))
+            {
+                Console.WriteLine("Incorrect input for alarm priority!");
+                return;
+            }
+
+            if (proxy.addTagAlarm(id, (AlarmType)option, limit, (AlarmPriority)priority))
+            {
+                Console.WriteLine("Successfully added alarm");
+            }
+            else
+            {
+                Console.WriteLine("Failed to add alarm!");
+            }
+
+
 
         }
 

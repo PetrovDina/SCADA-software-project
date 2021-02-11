@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Alarm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlarmType" type="tns:AlarmType" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Limit" type="xs:double" />
+      <xs:element minOccurs="0" name="Priority" type="tns:AlarmPriority" />
+      <xs:element minOccurs="0" name="TagId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Alarm" nillable="true" type="tns:Alarm" />
+  <xs:simpleType name="AlarmType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW_LIMIT" />
+      <xs:enumeration value="HIGH_LIMIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AlarmType" nillable="true" type="tns:AlarmType" />
+  <xs:simpleType name="AlarmPriority">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MEDIUM">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HIGH">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AlarmPriority" nillable="true" type="tns:AlarmPriority" />
+</xs:schema>

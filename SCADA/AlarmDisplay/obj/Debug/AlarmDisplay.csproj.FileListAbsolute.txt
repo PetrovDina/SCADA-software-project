@@ -1,0 +1,7 @@
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\bin\Debug\AlarmDisplay.exe.config
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\bin\Debug\AlarmDisplay.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\bin\Debug\AlarmDisplay.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\bin\Debug\Model.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\bin\Debug\Model.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\obj\Debug\AlarmDisplay.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\AlarmDisplay\obj\Debug\AlarmDisplay.pdb

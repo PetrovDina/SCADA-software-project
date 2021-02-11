@@ -17,14 +17,92 @@ namespace CORE
         public static Dictionary<string, Tag> TagsDictionary = new Dictionary<string, Tag>();
         public static Dictionary<string, Thread> ThreadsDictionary = new Dictionary<string, Thread>();
         public static Dictionary<string, double> OutputAddressValues = new Dictionary<string, double>();
+        public static Dictionary<string, List<Alarm>> Alarms = new Dictionary<string, List<Alarm>>();
+
 
         public delegate void ValueDelegate(Tag t, double value, DateTime time);
         public static event ValueDelegate onValueRead = null;
 
+        public delegate void AlarmDelegate(Alarm a, double value, DateTime time);
+        public static event AlarmDelegate onAlarmActivated = null;
+
         static TagProcessing()
         {
 
+            
             loadTagsFromXML();
+            //todo initalise alarm dictionary lists??
+            //todo load alarms from xml
+
+        }
+
+        internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority )
+        {
+            if (!TagsDictionary.ContainsKey(id))
+            {
+                return false;
+            }
+            Tag t = TagsDictionary[id];
+            if (!t.GetType().IsSubclassOf(typeof(InputTag))){
+                Console.WriteLine("Invalid tag type or nonexistant id");
+                return false;
+            }
+
+            if (t is AnalogInput)
+            {
+                AnalogInput ait = (AnalogInput)t;
+                if (alarmType == AlarmType.LOW_LIMIT)
+                {   
+                    if (limit < ait.LowLimit)
+                    {
+                        Console.WriteLine("Low alarm limit cannot be lower than tag lowlimit");
+                        return false;
+                    }
+        
+                }
+                else
+                {
+                    if (limit > ait.HighLimit)
+                    {
+                        Console.WriteLine("High alarm limit cannot be higher than tag highlimit");
+                        return false;
+                    }
+                }
+
+
+            }
+            else //digital input alarm
+            {
+                DigitalInput dit = (DigitalInput)t;
+                if (alarmType == AlarmType.LOW_LIMIT && limit != 0)
+                {
+
+                    Console.WriteLine("Low alarm limit cannot be lower than 0");
+                    return false;
+                    
+
+                }
+                else if (alarmType == AlarmType.HIGH_LIMIT && limit != 1)
+                {
+
+                    Console.WriteLine("High alarm limit cannot be higher than 1");
+                    return false;
+                    
+                }
+            }
+
+            //if we've made it here, we create an alarm
+            Alarm analogAlarm = new Alarm
+            {
+                TagId = id,
+                AlarmType = alarmType,
+                Limit = limit,
+                Priority = priority
+
+            };
+
+            Alarms[id].Add(analogAlarm);
+            return true;
         }
 
         private static void loadTagsFromXML()
@@ -174,13 +252,17 @@ namespace CORE
 
         public static bool AddTag(Tag t)
         {
+            //todo add check if id exists?
 
             if (t.Id == null)
             {
-                string newId = (TagsDictionary.Count + 1).ToString();
+                //string newId = (TagsDictionary.Count + 1).ToString();
+                string newId = getNewId();
+                Console.WriteLine("NEW ID GIVEN IS " + newId);
                 t.Id = newId;
+
             }
-            
+
             TagsDictionary[t.Id] = t;
 
             //todo check if this logic is okay
@@ -193,11 +275,13 @@ namespace CORE
 
             }
 
+
             saveTagsToXml();
 
-            //Create thread if it's an input tag
+            //Create thread if it's an input tag and initialise alarm list
             if (t is AnalogInput || t is DigitalInput)
             {
+                Alarms[t.Id] = new List<Alarm>(); //todo check if initialising new alarm list is ok
                 Thread thread = new Thread(new ParameterizedThreadStart(inputTagWork));
                 ThreadsDictionary[t.Id] = thread;
                 thread.Start(t.Id);
@@ -205,6 +289,11 @@ namespace CORE
 
             return true;
 
+        }
+
+        private static string getNewId()
+        {
+            return (TagsDictionary.Keys.Select(x => int.Parse(x)).DefaultIfEmpty(0).Max() + 1).ToString();
         }
 
         private static void inputTagWork(object o)
@@ -268,21 +357,43 @@ namespace CORE
                     }
                 }
 
+                List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
+                //todo save values and potential alarms to database here!
 
-                if (!itag.ScanOn)
+                if (itag.ScanOn)
                 {
-                    //todo read and save value to database but dont invoke trending app
-                    Thread.Sleep(itag.ScanTime * 1000);
-                    continue;
+                    DateTime time = DateTime.Now;
+                    onValueRead?.Invoke(itag, value, time);
+                    activatedAlarms.ForEach(x => onAlarmActivated?.Invoke(x, value, time));
                 }
-
-                onValueRead?.Invoke(itag, value, DateTime.Now);
 
                 Thread.Sleep(itag.ScanTime * 1000);
 
             }
 
         }
+
+        private static List<Alarm> getActivatedAlarms(string id, double value)
+        {
+            List<Alarm> list = new List<Alarm>();
+            InputTag t = (InputTag)TagsDictionary[id];
+
+            foreach (Alarm a in Alarms[id])
+            {
+                if (a.AlarmType==AlarmType.LOW_LIMIT && value <= a.Limit)
+                {
+                    list.Add(a);
+                }
+                else if (a.AlarmType==AlarmType.HIGH_LIMIT && value >= a.Limit)
+                {
+                    list.Add(a);
+                }
+            }
+
+
+            return list;
+        }
+
         private static void refreshOutputTagValues()
         {
             //Getting all output tags:
@@ -299,8 +410,16 @@ namespace CORE
                 return false;
             }
 
+
+            Console.WriteLine("BEFORE DELETION COUNT: " + TagsDictionary.Count);
+            if (ThreadsDictionary.ContainsKey(id))
+            {
+                ThreadsDictionary[id].Abort();
+
+            }
             TagsDictionary.Remove(id);
-            ThreadsDictionary[id].Abort();
+            Console.WriteLine("AFTER DELETION COUNT: " + TagsDictionary.Count);
+
             saveTagsToXml();
             return true;
 

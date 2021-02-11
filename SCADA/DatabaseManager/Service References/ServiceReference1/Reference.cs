@@ -50,6 +50,12 @@ namespace DatabaseManager.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/showOutputTagValues", ReplyAction="http://tempuri.org/IDatabaseManager/showOutputTagValuesResponse")]
         System.Threading.Tasks.Task<string> showOutputTagValuesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/addTagAlarm", ReplyAction="http://tempuri.org/IDatabaseManager/addTagAlarmResponse")]
+        bool addTagAlarm(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/addTagAlarm", ReplyAction="http://tempuri.org/IDatabaseManager/addTagAlarmResponse")]
+        System.Threading.Tasks.Task<bool> addTagAlarmAsync(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -117,6 +123,14 @@ namespace DatabaseManager.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string> showOutputTagValuesAsync() {
             return base.Channel.showOutputTagValuesAsync();
+        }
+        
+        public bool addTagAlarm(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority) {
+            return base.Channel.addTagAlarm(id, alarmType, limit, priority);
+        }
+        
+        public System.Threading.Tasks.Task<bool> addTagAlarmAsync(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority) {
+            return base.Channel.addTagAlarmAsync(id, alarmType, limit, priority);
         }
     }
 }

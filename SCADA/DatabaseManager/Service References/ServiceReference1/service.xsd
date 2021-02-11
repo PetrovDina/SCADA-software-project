@@ -71,4 +71,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="addTagAlarm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="alarmType" type="q2:AlarmType" />
+        <xs:element minOccurs="0" name="limit" type="xs:double" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="priority" type="q3:AlarmPriority" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addTagAlarmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="addTagAlarmResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

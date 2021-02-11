@@ -35,7 +35,22 @@ namespace CORE
             return success;
         }
 
+        public bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority)
+        {
+            bool success = TagProcessing.addTagAlarm(id, alarmType, limit, priority);
 
+            if (success)
+            {
+                Console.WriteLine("Successfully added alarm for tag with id " + id);
+            }
+
+            else
+            {
+                Console.WriteLine("Adding alarm failef. Id: " + id);
+
+            }
+            return success;
+        }
 
         public bool removeTag(string id)
         {

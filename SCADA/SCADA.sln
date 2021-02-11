@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManager", "Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trending", "Trending\Trending.csproj", "{EC82BE6B-1961-468E-8927-468D6EC068AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlarmDisplay", "AlarmDisplay\AlarmDisplay.csproj", "{E250BC5C-FD58-4598-8504-53089207DF4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EC82BE6B-1961-468E-8927-468D6EC068AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC82BE6B-1961-468E-8927-468D6EC068AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC82BE6B-1961-468E-8927-468D6EC068AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E250BC5C-FD58-4598-8504-53089207DF4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E250BC5C-FD58-4598-8504-53089207DF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E250BC5C-FD58-4598-8504-53089207DF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E250BC5C-FD58-4598-8504-53089207DF4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

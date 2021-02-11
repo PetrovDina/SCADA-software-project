@@ -15,9 +15,11 @@ namespace CORE
         {
             ServiceHost svc = new ServiceHost(typeof(DatabaseManagerService));
             ServiceHost svc2 = new ServiceHost(typeof(TrendingService));
+            ServiceHost svc3 = new ServiceHost(typeof(AlarmDisplayService));
 
             svc.Open();
             svc2.Open();
+            svc3.Open();
             Console.WriteLine("Welcome to SCADA");
             Console.ReadKey();
             svc.Close();

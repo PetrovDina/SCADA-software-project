@@ -37,6 +37,12 @@
   <wsdl:message name="IDatabaseManager_showOutputTagValues_OutputMessage">
     <wsdl:part name="parameters" element="tns:showOutputTagValuesResponse" />
   </wsdl:message>
+  <wsdl:message name="IDatabaseManager_addTagAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:addTagAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseManager_addTagAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addTagAlarmResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDatabaseManager">
     <wsdl:operation name="addTag">
       <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseManager/addTag" message="tns:IDatabaseManager_addTag_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="showOutputTagValues">
       <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseManager/showOutputTagValues" message="tns:IDatabaseManager_showOutputTagValues_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseManager/showOutputTagValuesResponse" message="tns:IDatabaseManager_showOutputTagValues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addTagAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseManager/addTagAlarm" message="tns:IDatabaseManager_addTagAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseManager/addTagAlarmResponse" message="tns:IDatabaseManager_addTagAlarm_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IDatabaseManager" type="tns:IDatabaseManager">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="showOutputTagValues">
       <soap:operation soapAction="http://tempuri.org/IDatabaseManager/showOutputTagValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTagAlarm">
+      <soap:operation soapAction="http://tempuri.org/IDatabaseManager/addTagAlarm" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

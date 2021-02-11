@@ -16,6 +16,5 @@
     <AnalogOutputTag id="8" description="some desc3" IOAddress="3" driverType="1" value="20" lowLimit="0" highLimit="100" />
     <AnalogOutputTag id="9" description="some desc3" IOAddress="3" driverType="1" value="20" lowLimit="0" highLimit="100" />
     <AnalogOutputTag id="10" description="some desc3" IOAddress="4" driverType="1" value="60" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="11" description="proba" IOAddress="0" driverType="0" value="2" lowLimit="0" highLimit="3" />
   </AnalogOutputTags>
 </tags>

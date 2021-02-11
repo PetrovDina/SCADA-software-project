@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmDisplayService.cs" />
+    <Compile Include="IAlarm.cs" />
+    <Compile Include="IAlarmCallback.cs" />
     <Compile Include="IDatabaseManager.cs" />
     <Compile Include="COREMain.cs" />
     <Compile Include="ITrending.cs" />
