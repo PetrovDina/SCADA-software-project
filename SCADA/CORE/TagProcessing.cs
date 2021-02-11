@@ -14,6 +14,8 @@ namespace CORE
     {
 
         public static string TAGS_CONFIG_PATH = @"../../scadaConfig.xml";
+        public static string ALARMS_CONFIG_PATH = @"../../AlarmConfig.xml";
+
         public static Dictionary<string, Tag> TagsDictionary = new Dictionary<string, Tag>();
         public static Dictionary<string, Thread> ThreadsDictionary = new Dictionary<string, Thread>();
         public static Dictionary<string, double> OutputAddressValues = new Dictionary<string, double>();
@@ -26,17 +28,34 @@ namespace CORE
         public delegate void AlarmDelegate(Alarm a, double value, DateTime time);
         public static event AlarmDelegate onAlarmActivated = null;
 
+
         static TagProcessing()
         {
 
             
             loadTagsFromXML();
-            //todo initalise alarm dictionary lists??
-            //todo load alarms from xml
+            loadAlarmsFromXML();
 
         }
 
-        internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority )
+        private static void loadAlarmsFromXML()
+        {
+            XElement xmlData = XElement.Load(ALARMS_CONFIG_PATH);
+
+            foreach(var x in xmlData.Descendants("alarm"))
+            {
+                string tagId = (string)x.Attribute("tagId");
+                AlarmType alarmType = (AlarmType)(int)x.Attribute("alarmType");
+                double limit = (double)x.Attribute("limit");
+                AlarmPriority priority = (AlarmPriority)(int)x.Attribute("priority");
+                string id = (string)x.Attribute("id");
+
+                addTagAlarm(tagId, alarmType, limit, priority, id);
+
+            }
+        }
+
+        internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority, string alarmId = null)
         {
             if (!TagsDictionary.ContainsKey(id))
             {
@@ -92,7 +111,7 @@ namespace CORE
             }
 
             //if we've made it here, we create an alarm
-            Alarm analogAlarm = new Alarm
+            Alarm alarm = new Alarm
             {
                 TagId = id,
                 AlarmType = alarmType,
@@ -101,8 +120,44 @@ namespace CORE
 
             };
 
-            Alarms[id].Add(analogAlarm);
+            alarm.Id = alarmId == null ? getNewAlarmId() : alarmId;
+
+            Alarms[id].Add(alarm);
+
+            saveAlarmsToXml();
             return true;
+        }
+
+        private static void saveAlarmsToXml()
+        {
+            XElement alarmsElement = new XElement("alarms");
+            List<Alarm> alarmsList = new List<Alarm>();
+
+            foreach (List<Alarm> list in Alarms.Values)
+            {
+                list.ForEach(x => alarmsList.Add(x));
+            }
+
+            alarmsElement.Add(from a in alarmsList
+                                        select new XElement("alarm",
+                                            new XAttribute("id", a.Id == null ? "" : a.Id),
+                                            new XAttribute("tagId", a.TagId),
+                                            new XAttribute("alarmType", (int)a.AlarmType),
+                                            new XAttribute("limit", a.Limit),
+                                            new XAttribute("priority", (int)a.Priority)
+                                            ));
+
+            using (var sw = new StreamWriter(ALARMS_CONFIG_PATH))
+            {
+                sw.Write(alarmsElement);
+            }
+
+        }
+
+        private static string getNewAlarmId()
+        {
+            //todo DO THIS METHOD
+            return null;
         }
 
         private static void loadTagsFromXML()
@@ -411,14 +466,12 @@ namespace CORE
             }
 
 
-            Console.WriteLine("BEFORE DELETION COUNT: " + TagsDictionary.Count);
             if (ThreadsDictionary.ContainsKey(id))
             {
                 ThreadsDictionary[id].Abort();
 
             }
             TagsDictionary.Remove(id);
-            Console.WriteLine("AFTER DELETION COUNT: " + TagsDictionary.Count);
 
             saveTagsToXml();
             return true;

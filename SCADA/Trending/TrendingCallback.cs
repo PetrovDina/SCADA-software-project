@@ -13,7 +13,7 @@ namespace Trending
         public void onValueRead(Tag t, double value, DateTime time)
         {
             Console.WriteLine(t);
-            Console.WriteLine(value + " at " + time);
+            Console.WriteLine("Read value " + value + " at " + time);
             Console.WriteLine("-------------------------------");
         }
     }

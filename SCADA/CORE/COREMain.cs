@@ -23,6 +23,8 @@ namespace CORE
             Console.WriteLine("Welcome to SCADA");
             Console.ReadKey();
             svc.Close();
+            svc2.Close();
+            svc3.Close();
         }
 
     }
