@@ -156,8 +156,15 @@ namespace CORE
 
         private static string getNewAlarmId()
         {
-            //todo DO THIS METHOD
-            return null;
+            List<Alarm> alarmsList = new List<Alarm>();
+
+            foreach (List<Alarm> list in Alarms.Values)
+            {
+                list.ForEach(x => alarmsList.Add(x));
+            }
+
+
+            return (alarmsList.Select(x => int.Parse(x.Id)).DefaultIfEmpty(0).Max() + 1).ToString();
         }
 
         private static void loadTagsFromXML()
@@ -311,9 +318,7 @@ namespace CORE
 
             if (t.Id == null)
             {
-                //string newId = (TagsDictionary.Count + 1).ToString();
                 string newId = getNewId();
-                Console.WriteLine("NEW ID GIVEN IS " + newId);
                 t.Id = newId;
 
             }
@@ -350,6 +355,7 @@ namespace CORE
         {
             return (TagsDictionary.Keys.Select(x => int.Parse(x)).DefaultIfEmpty(0).Max() + 1).ToString();
         }
+
 
         private static void inputTagWork(object o)
         {
@@ -412,12 +418,16 @@ namespace CORE
                     }
                 }
 
+                DateTime time = DateTime.Now;
                 List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
-                //todo save values and potential alarms to database here!
+                //todo save values to db here
+
+                //todo save alarms to db here
+                activatedAlarms.ForEach(x => AlarmDatabase.addAlarmToDatabase(x, value, time));
+
 
                 if (itag.ScanOn)
                 {
-                    DateTime time = DateTime.Now;
                     onValueRead?.Invoke(itag, value, time);
                     activatedAlarms.ForEach(x => onAlarmActivated?.Invoke(x, value, time));
                 }

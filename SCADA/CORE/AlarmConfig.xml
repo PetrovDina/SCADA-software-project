@@ -1,5 +1,4 @@
 <alarms>
-  <alarm id="" tagId="1" alarmType="1" limit="1" priority="1" />
-  <alarm id="" tagId="6" alarmType="1" limit="3" priority="3" />
-  <alarm id="" tagId="6" alarmType="1" limit="3" priority="2" />
+  <alarm id="2" tagId="1" alarmType="1" limit="1" priority="1" />
+  <alarm id="1" tagId="6" alarmType="1" limit="3" priority="3" />
 </alarms>
