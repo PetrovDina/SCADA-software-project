@@ -55,8 +55,27 @@ namespace CORE
             }
         }
 
+        internal static Alarm getAlarmById(string alarmId)
+        {
+            foreach (List<Alarm> list in Alarms.Values)
+            {
+                foreach (Alarm a in list)
+                {
+                    if (a.Id == alarmId)
+                    {
+                        return a;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority, string alarmId = null)
         {
+
+            //todo add lock?
+
             if (!TagsDictionary.ContainsKey(id))
             {
                 return false;
@@ -125,8 +144,14 @@ namespace CORE
             
             Alarms[id].Add(alarm);
 
-            saveAlarmsToXml();
+            saveAlarmsToXml(); //todo change this so that its only called when alarm has no param id
             return true;
+        }
+
+        internal static Tag getTagById(string inputTagId)
+        {
+            //todo LOCK
+            return TagsDictionary.ContainsKey(inputTagId) ? TagsDictionary[inputTagId] : null;
         }
 
         private static void saveAlarmsToXml()
@@ -315,6 +340,7 @@ namespace CORE
 
         public static bool AddTag(Tag t)
         {
+            //todo add lock
             //todo add check if id exists?
 
             if (t.Id == null)
@@ -360,6 +386,7 @@ namespace CORE
 
         private static void inputTagWork(object o)
         {
+            //TODO ADD LOCK SOMEWHERE
             string id = (string)o;
             Tag t = TagsDictionary[id];
 
@@ -386,7 +413,6 @@ namespace CORE
                     //todo runtime simulation
                 }
 
-                Console.WriteLine("VALUE READ IS " + value);
 
                 if (t is AnalogInput)
                 {
@@ -473,6 +499,7 @@ namespace CORE
 
         public static bool RemoveTag(string id)
         {
+            //TODO ADD LOCK
             if (!TagsDictionary.ContainsKey(id))
             {
                 return false;
@@ -493,7 +520,7 @@ namespace CORE
 
         public static bool SetTagScan(string id, bool scan)
         {
-
+            //TODO ADD LOCK
             if (!TagsDictionary.ContainsKey(id))
             {
                 return false;
@@ -513,6 +540,7 @@ namespace CORE
 
         internal static bool SetOutputTagValue(string id, double value)
         {
+            //TODO ADD LOCK ?
             if (!TagsDictionary.ContainsKey(id))
             {
                 return false;
@@ -539,20 +567,21 @@ namespace CORE
             }
             else if (tag.GetType() == typeof(DigitalOutput))
             {
-                //todo da li da uopste dozvolim nesto sto je razlicito od 0 i 1?????????? ne i cao
                 if (value != 0 && value != 1)
                     return false;
 
             }
            
             OutputAddressValues[tag.IOAddress] = value;
-            refreshOutputTagValues(); //todo what if the new value doesnt fit the leves for another output tag with the same address?
+            refreshOutputTagValues(); 
             saveTagsToXml();
             return true;
         }
 
         internal static string getOutputTagValues()
+
         {
+            //TODO ADD LOCK
             String info = "-------Output Tag values--------\n";
 
             foreach (Tag t in TagsDictionary.Values)

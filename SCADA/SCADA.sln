@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trending", "Trending\Trendi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlarmDisplay", "AlarmDisplay\AlarmDisplay.csproj", "{E250BC5C-FD58-4598-8504-53089207DF4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportManager", "ReportManager\ReportManager.csproj", "{F43599A8-F25D-40A2-9F49-FC2080D77CBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E250BC5C-FD58-4598-8504-53089207DF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E250BC5C-FD58-4598-8504-53089207DF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E250BC5C-FD58-4598-8504-53089207DF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43599A8-F25D-40A2-9F49-FC2080D77CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43599A8-F25D-40A2-9F49-FC2080D77CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43599A8-F25D-40A2-9F49-FC2080D77CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43599A8-F25D-40A2-9F49-FC2080D77CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

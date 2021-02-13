@@ -21,14 +21,21 @@ namespace Model
 
         [DataMember]
         public DateTime DateTime { get; set; }
+        
+        [DataMember]
+        public AlarmPriority Priority { get; set; }
 
+        [DataMember]
         public string InputTagId { get; set; }
 
+        [DataMember]
         public string AlarmId { get; set; }
+
+       
 
         public override string ToString()
         {
-            return $"Alarm entry = id: {Id}, Value: {Value}, Time: {DateTime}, InputTag: {InputTagId}, AlarmId: {AlarmId}";
+            return $"Alarm entry = id: {Id}, Value: {Value}, Time: {DateTime}, Priority: {Priority}, InputTag: {InputTagId}, AlarmId: {AlarmId}";
         }
     }
 

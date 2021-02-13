@@ -23,6 +23,7 @@ namespace CORE
                     AlarmId = a.Id,
                     DateTime = time,
                     Value = value,
+                    Priority = a.Priority,
                     InputTagId = a.TagId
                 };
 

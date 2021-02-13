@@ -63,10 +63,12 @@
     <Compile Include="IAlarmCallback.cs" />
     <Compile Include="IDatabaseManager.cs" />
     <Compile Include="COREMain.cs" />
+    <Compile Include="IReportManager.cs" />
     <Compile Include="ITrending.cs" />
     <Compile Include="ITrendingCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseManagerService.cs" />
+    <Compile Include="ReportManagerService.cs" />
     <Compile Include="SimulationDriver.cs" />
     <Compile Include="TagProcessing.cs" />
     <Compile Include="TagValueDatabase.cs" />

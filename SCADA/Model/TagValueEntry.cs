@@ -21,6 +21,7 @@ namespace Model
         [DataMember]
         public DateTime DateTime { get; set; }
 
+        [DataMember]
         public string InputTagId { get; set; }
 
         public override string ToString()
