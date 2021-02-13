@@ -90,8 +90,9 @@ namespace CORE
 
 
             }
-            else //digital input alarm
+            else 
             {
+                //digital input alarm
                 DigitalInput dit = (DigitalInput)t;
                 if (alarmType == AlarmType.LOW_LIMIT && limit != 0)
                 {
@@ -121,7 +122,7 @@ namespace CORE
             };
 
             alarm.Id = alarmId == null ? getNewAlarmId() : alarmId;
-
+            
             Alarms[id].Add(alarm);
 
             saveAlarmsToXml();
@@ -422,9 +423,8 @@ namespace CORE
                 List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
                 //todo save values to db here
 
-                //todo save alarms to db here
+                //todo save alarms to db and txt here
                 activatedAlarms.ForEach(x => AlarmDatabase.addAlarmToDatabase(x, value, time));
-
 
                 if (itag.ScanOn)
                 {

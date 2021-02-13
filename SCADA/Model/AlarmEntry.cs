@@ -22,12 +22,15 @@ namespace Model
         [DataMember]
         public DateTime DateTime { get; set; }
 
-        //[ForeignKey("InputTag")]
         public string InputTagId { get; set; }
-        //public virtual InputTag InputTag { get; set; }
 
-        //[ForeignKey("Alarm")]
         public string AlarmId { get; set; }
-        //public virtual Alarm Alarm { get; set; }
+
+        public override string ToString()
+        {
+            return $"Alarm entry = id: {Id}, Value: {Value}, Time: {DateTime}, InputTag: {InputTagId}, AlarmId : {AlarmId}";
+        }
     }
+
+    
 }
