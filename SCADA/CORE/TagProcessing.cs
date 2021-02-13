@@ -386,6 +386,8 @@ namespace CORE
                     //todo runtime simulation
                 }
 
+                Console.WriteLine("VALUE READ IS " + value);
+
                 if (t is AnalogInput)
                 {
                     AnalogInput ait = (AnalogInput)t;
@@ -420,10 +422,11 @@ namespace CORE
                 }
 
                 DateTime time = DateTime.Now;
-                List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
-                //todo save values to db here
 
-                //todo save alarms to db and txt here
+
+                TagValueDatabase.addTagValueToDatabase(t, value, time);
+                List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
+
                 activatedAlarms.ForEach(x => AlarmDatabase.addAlarmToDatabase(x, value, time));
 
                 if (itag.ScanOn)

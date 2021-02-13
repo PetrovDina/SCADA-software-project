@@ -11,6 +11,7 @@ namespace CORE
     public static class AlarmDatabase
 
     {
+        public static string ALARMS_LOG_PATH = "../../AlarmsLog.txt";
         public static object locker = new object();
 
         public static bool addAlarmToDatabase(Alarm a, double value, DateTime time)
@@ -32,7 +33,7 @@ namespace CORE
                     db.SaveChanges();
                 }
 
-                using (var sw = new StreamWriter("../../AlarmsLog.txt", true))
+                using (var sw = new StreamWriter(ALARMS_LOG_PATH, true))
                 {
                     sw.WriteLine(entry.ToString());
                 }

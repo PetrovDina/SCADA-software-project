@@ -66,6 +66,8 @@
     <Compile Include="Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlarmEntry.cs" />
+    <Compile Include="TagValueContext.cs" />
+    <Compile Include="TagValueEntry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

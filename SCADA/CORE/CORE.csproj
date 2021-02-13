@@ -69,6 +69,7 @@
     <Compile Include="DatabaseManagerService.cs" />
     <Compile Include="SimulationDriver.cs" />
     <Compile Include="TagProcessing.cs" />
+    <Compile Include="TagValueDatabase.cs" />
     <Compile Include="TrendingService.cs" />
   </ItemGroup>
   <ItemGroup>
