@@ -63,11 +63,13 @@
     <Compile Include="IAlarmCallback.cs" />
     <Compile Include="IDatabaseManager.cs" />
     <Compile Include="COREMain.cs" />
+    <Compile Include="IRealTime.cs" />
     <Compile Include="IReportManager.cs" />
     <Compile Include="ITrending.cs" />
     <Compile Include="ITrendingCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseManagerService.cs" />
+    <Compile Include="RealTimeService.cs" />
     <Compile Include="ReportManagerService.cs" />
     <Compile Include="SimulationDriver.cs" />
     <Compile Include="TagProcessing.cs" />
@@ -88,7 +90,9 @@
     <Content Include="AlarmConfig.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="scadaConfig.xml" />
+    <Content Include="scadaConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

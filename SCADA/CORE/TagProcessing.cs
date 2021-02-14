@@ -28,14 +28,13 @@ namespace CORE
         public delegate void AlarmDelegate(Alarm a, double value, DateTime time);
         public static event AlarmDelegate onAlarmActivated = null;
 
+        public static object locker = new object();
+
 
         static TagProcessing()
         {
-
-            
             loadTagsFromXML();
             loadAlarmsFromXML();
-
         }
 
         private static void loadAlarmsFromXML()
@@ -57,105 +56,121 @@ namespace CORE
 
         internal static Alarm getAlarmById(string alarmId)
         {
-            foreach (List<Alarm> list in Alarms.Values)
+            lock (locker)
             {
-                foreach (Alarm a in list)
+                foreach (List<Alarm> list in Alarms.Values)
                 {
-                    if (a.Id == alarmId)
+                    foreach (Alarm a in list)
                     {
-                        return a;
+                        if (a.Id == alarmId)
+                        {
+                            return a;
+                        }
                     }
                 }
-            }
 
-            return null;
+                return null;
+            }
+           
         }
 
         internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority, string alarmId = null)
         {
 
-            //todo add lock?
 
-            if (!TagsDictionary.ContainsKey(id))
+            lock (locker)
             {
-                return false;
-            }
-            Tag t = TagsDictionary[id];
-            if (!t.GetType().IsSubclassOf(typeof(InputTag))){
-                Console.WriteLine("Invalid tag type or nonexistant id");
-                return false;
-            }
+                if (!TagsDictionary.ContainsKey(id))
+                {
+                    return false;
+                }
 
-            if (t is AnalogInput)
-            {
-                AnalogInput ait = (AnalogInput)t;
-                if (alarmType == AlarmType.LOW_LIMIT)
-                {   
-                    if (limit < ait.LowLimit)
+                Tag t = TagsDictionary[id];
+                if (!t.GetType().IsSubclassOf(typeof(InputTag)))
+                {
+                    Console.WriteLine("Invalid tag type or nonexistant id");
+                    return false;
+                }
+
+                if (t is AnalogInput)
+                {
+                    AnalogInput ait = (AnalogInput)t;
+                    if (alarmType == AlarmType.LOW_LIMIT)
                     {
-                        Console.WriteLine("Low alarm limit cannot be lower than tag lowlimit");
-                        return false;
+                        if (limit < ait.LowLimit)
+                        {
+                            Console.WriteLine("Low alarm limit cannot be lower than tag lowlimit");
+                            return false;
+                        }
+
                     }
-        
+                    else
+                    {
+                        if (limit > ait.HighLimit)
+                        {
+                            Console.WriteLine("High alarm limit cannot be higher than tag highlimit");
+                            return false;
+                        }
+                    }
+
+
                 }
                 else
                 {
-                    if (limit > ait.HighLimit)
+                    //digital input alarm
+                    DigitalInput dit = (DigitalInput)t;
+                    if (alarmType == AlarmType.LOW_LIMIT && limit != 0)
                     {
-                        Console.WriteLine("High alarm limit cannot be higher than tag highlimit");
+
+                        Console.WriteLine("Low alarm limit cannot be lower than 0");
                         return false;
+
+
+                    }
+                    else if (alarmType == AlarmType.HIGH_LIMIT && limit != 1)
+                    {
+
+                        Console.WriteLine("High alarm limit cannot be higher than 1");
+                        return false;
+
                     }
                 }
 
+                //if we've made it here, we create an alarm
+                Alarm alarm = new Alarm
+                {
+                    TagId = id,
+                    AlarmType = alarmType,
+                    Limit = limit,
+                    Priority = priority
+
+                };
+
+                alarm.Id = alarmId == null ? getNewAlarmId() : alarmId;
+
+                Alarms[id].Add(alarm);
+
+
+                saveAlarmsToXml(); //todo change this so that its only called when alarm has no param id
+                return true;
 
             }
-            else 
-            {
-                //digital input alarm
-                DigitalInput dit = (DigitalInput)t;
-                if (alarmType == AlarmType.LOW_LIMIT && limit != 0)
-                {
 
-                    Console.WriteLine("Low alarm limit cannot be lower than 0");
-                    return false;
-                    
-
-                }
-                else if (alarmType == AlarmType.HIGH_LIMIT && limit != 1)
-                {
-
-                    Console.WriteLine("High alarm limit cannot be higher than 1");
-                    return false;
-                    
-                }
-            }
-
-            //if we've made it here, we create an alarm
-            Alarm alarm = new Alarm
-            {
-                TagId = id,
-                AlarmType = alarmType,
-                Limit = limit,
-                Priority = priority
-
-            };
-
-            alarm.Id = alarmId == null ? getNewAlarmId() : alarmId;
             
-            Alarms[id].Add(alarm);
-
-            saveAlarmsToXml(); //todo change this so that its only called when alarm has no param id
-            return true;
         }
 
         internal static Tag getTagById(string inputTagId)
         {
-            //todo LOCK
-            return TagsDictionary.ContainsKey(inputTagId) ? TagsDictionary[inputTagId] : null;
+            lock (locker)
+            {
+                return TagsDictionary.ContainsKey(inputTagId) ? TagsDictionary[inputTagId] : null;
+
+            }
         }
 
         private static void saveAlarmsToXml()
         {
+            
             XElement alarmsElement = new XElement("alarms");
             List<Alarm> alarmsList = new List<Alarm>();
 
@@ -182,15 +197,19 @@ namespace CORE
 
         private static string getNewAlarmId()
         {
-            List<Alarm> alarmsList = new List<Alarm>();
-
-            foreach (List<Alarm> list in Alarms.Values)
+            lock (locker)
             {
-                list.ForEach(x => alarmsList.Add(x));
+                List<Alarm> alarmsList = new List<Alarm>();
+
+                foreach (List<Alarm> list in Alarms.Values)
+                {
+                    list.ForEach(x => alarmsList.Add(x));
+                }
+
+
+                return (alarmsList.Select(x => int.Parse(x.Id)).DefaultIfEmpty(0).Max() + 1).ToString();
             }
-
-
-            return (alarmsList.Select(x => int.Parse(x.Id)).DefaultIfEmpty(0).Max() + 1).ToString();
+            
         }
 
         private static void loadTagsFromXML()
@@ -340,55 +359,64 @@ namespace CORE
 
         public static bool AddTag(Tag t)
         {
-            //todo add lock
-            //todo add check if id exists?
 
-            if (t.Id == null)
-            {
-                string newId = getNewId();
-                t.Id = newId;
+            lock (locker) {
+                if (t.Id == null)
+                {
+                    string newId = getNewId();
+                    t.Id = newId;
+                }
 
+                TagsDictionary[t.Id] = t;
+
+                //todo check if this logic is okay
+                if (t.GetType().IsSubclassOf(typeof(OutputTag)))
+                {
+                    OutputTag ot = (OutputTag)t;
+                    OutputAddressValues[t.IOAddress] = ot.value;
+                    refreshOutputTagValues();
+
+
+                }
+
+                saveTagsToXml();
+
+                //Create thread if it's an input tag and initialise alarm list
+                if (t is AnalogInput || t is DigitalInput)
+                {
+                    Alarms[t.Id] = new List<Alarm>(); //todo check if initialising new alarm list is ok
+                    Thread thread = new Thread(new ParameterizedThreadStart(inputTagWork));
+                    ThreadsDictionary[t.Id] = thread;
+                    thread.Start(t.Id);
+                }
+
+                return true;
             }
 
-            TagsDictionary[t.Id] = t;
-
-            //todo check if this logic is okay
-            if (t.GetType().IsSubclassOf(typeof(OutputTag)))
-            {
-                OutputTag ot = (OutputTag)t;
-                OutputAddressValues[t.IOAddress] = ot.value;
-                refreshOutputTagValues();
-
-
-            }
-
-
-            saveTagsToXml();
-
-            //Create thread if it's an input tag and initialise alarm list
-            if (t is AnalogInput || t is DigitalInput)
-            {
-                Alarms[t.Id] = new List<Alarm>(); //todo check if initialising new alarm list is ok
-                Thread thread = new Thread(new ParameterizedThreadStart(inputTagWork));
-                ThreadsDictionary[t.Id] = thread;
-                thread.Start(t.Id);
-            }
-
-            return true;
+            
 
         }
 
         private static string getNewId()
         {
-            return (TagsDictionary.Keys.Select(x => int.Parse(x)).DefaultIfEmpty(0).Max() + 1).ToString();
+            lock (locker)
+            {
+                return (TagsDictionary.Keys.Select(x => int.Parse(x)).DefaultIfEmpty(0).Max() + 1).ToString();
+
+            }
         }
 
 
         private static void inputTagWork(object o)
         {
-            //TODO ADD LOCK SOMEWHERE
             string id = (string)o;
-            Tag t = TagsDictionary[id];
+
+            Tag t;
+            lock (locker)
+            {
+                t = TagsDictionary[id];
+
+            }
 
             if (!t.GetType().IsSubclassOf(typeof(InputTag)))
             {
@@ -398,6 +426,7 @@ namespace CORE
 
             InputTag itag = (InputTag)t;
             double value = 0;
+            double? valueNull;
 
             while (true)
             {
@@ -411,8 +440,17 @@ namespace CORE
                 else
                 {
                     //todo runtime simulation
+                    valueNull = RealTimeService.getValueByAddress(itag.IOAddress);
+                    if (valueNull == null)
+                    {
+                        continue;  //if value is null that means there is no RTU at that address
+                    }
+                    else
+                    {
+                        value = (double)valueNull;
+                    }
                 }
-
+                
 
                 if (t is AnalogInput)
                 {
@@ -449,17 +487,20 @@ namespace CORE
 
                 DateTime time = DateTime.Now;
 
-
-                TagValueDatabase.addTagValueToDatabase(t, value, time);
-                List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
-
-                activatedAlarms.ForEach(x => AlarmDatabase.addAlarmToDatabase(x, value, time));
-
-                if (itag.ScanOn)
+                lock (locker) //todo check if ok
                 {
-                    onValueRead?.Invoke(itag, value, time);
-                    activatedAlarms.ForEach(x => onAlarmActivated?.Invoke(x, value, time));
+                    TagValueDatabase.addTagValueToDatabase(t, value, time);
+
+                    List<Alarm> activatedAlarms = getActivatedAlarms(id, value);
+                    activatedAlarms.ForEach(x => AlarmDatabase.addAlarmToDatabase(x, value, time));
+
+                    if (itag.ScanOn)
+                    {
+                        onValueRead?.Invoke(itag, value, time);
+                        activatedAlarms.ForEach(x => onAlarmActivated?.Invoke(x, value, time));
+                    }
                 }
+                
 
                 Thread.Sleep(itag.ScanTime * 1000);
 
@@ -469,132 +510,156 @@ namespace CORE
 
         private static List<Alarm> getActivatedAlarms(string id, double value)
         {
-            List<Alarm> list = new List<Alarm>();
-            InputTag t = (InputTag)TagsDictionary[id];
-
-            foreach (Alarm a in Alarms[id])
+            lock (locker)
             {
-                if (a.AlarmType==AlarmType.LOW_LIMIT && value <= a.Limit)
+                List<Alarm> list = new List<Alarm>();
+                InputTag t = (InputTag)TagsDictionary[id];
+
+                foreach (Alarm a in Alarms[id])
                 {
-                    list.Add(a);
+                    if (a.AlarmType == AlarmType.LOW_LIMIT && value <= a.Limit)
+                    {
+                        list.Add(a);
+                    }
+                    else if (a.AlarmType == AlarmType.HIGH_LIMIT && value >= a.Limit)
+                    {
+                        list.Add(a);
+                    }
                 }
-                else if (a.AlarmType==AlarmType.HIGH_LIMIT && value >= a.Limit)
-                {
-                    list.Add(a);
-                }
+                return list;
+
             }
 
-
-            return list;
         }
 
         private static void refreshOutputTagValues()
         {
-            //Getting all output tags:
-            List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
+            lock (locker)
+            {
+                //Getting all output tags:
+                List<OutputTag> outputTags = TagsDictionary.Values.Where(x => x.GetType().IsSubclassOf(typeof(OutputTag))).Select(x => (OutputTag)x).ToList();
+
+                //Updating their value property
+                outputTags.ForEach(x => x.value = OutputAddressValues[x.IOAddress]);
+            }
             
-            //Updating their value property
-            outputTags.ForEach(x => x.value = OutputAddressValues[x.IOAddress]);
         }
 
         public static bool RemoveTag(string id)
         {
-            //TODO ADD LOCK
-            if (!TagsDictionary.ContainsKey(id))
+            lock (locker)
             {
-                return false;
+                if (!TagsDictionary.ContainsKey(id))
+                {
+                    return false;
+                }
+
+
+                if (ThreadsDictionary.ContainsKey(id))
+                {
+                    ThreadsDictionary[id].Abort();
+
+                }
+
+                TagsDictionary.Remove(id);
+                Alarms.Keys.ToList().ForEach(x => Console.WriteLine(x));
+                Alarms.Remove(id);
+
+                saveTagsToXml();
+                saveAlarmsToXml();
+                return true;
             }
-
-
-            if (ThreadsDictionary.ContainsKey(id))
-            {
-                ThreadsDictionary[id].Abort();
-
-            }
-            TagsDictionary.Remove(id);
-
-            saveTagsToXml();
-            return true;
+            
 
         }
 
         public static bool SetTagScan(string id, bool scan)
         {
-            //TODO ADD LOCK
-            if (!TagsDictionary.ContainsKey(id))
+            lock (locker)
             {
-                return false;
-            }
+                if (!TagsDictionary.ContainsKey(id))
+                {
+                    return false;
+                }
 
-            if (!TagsDictionary[id].GetType().IsSubclassOf(typeof(InputTag)))
-            {
-                return false;
-            }
+                if (!TagsDictionary[id].GetType().IsSubclassOf(typeof(InputTag)))
+                {
+                    return false;
+                }
 
-            InputTag tag = (InputTag) TagsDictionary[id];
-            tag.ScanOn = scan;
-            saveTagsToXml();
-            return true;
+                InputTag tag = (InputTag)TagsDictionary[id];
+                tag.ScanOn = scan;
+                saveTagsToXml();
+                return true;
+            }
+            
 
         }
 
         internal static bool SetOutputTagValue(string id, double value)
         {
-            //TODO ADD LOCK ?
-            if (!TagsDictionary.ContainsKey(id))
-            {
-                return false;
-            }
 
-            if (!TagsDictionary[id].GetType().IsSubclassOf(typeof(OutputTag)))
+            lock (locker)
             {
-                return false;
-            }
-
-            Tag tag = TagsDictionary[id];
-            if (tag.GetType() == typeof(AnalogOutput))
-            {
-                AnalogOutput aot = (AnalogOutput)tag;
-                if (value < aot.LowLimit)
+                if (!TagsDictionary.ContainsKey(id))
                 {
-                    value = aot.LowLimit;
-                }
-                else if (value > aot.HighLimit)
-                {
-                    value = aot.HighLimit;
-                }
-
-            }
-            else if (tag.GetType() == typeof(DigitalOutput))
-            {
-                if (value != 0 && value != 1)
                     return false;
+                }
 
+                if (!TagsDictionary[id].GetType().IsSubclassOf(typeof(OutputTag)))
+                {
+                    return false;
+                }
+
+                Tag tag = TagsDictionary[id];
+                if (tag.GetType() == typeof(AnalogOutput))
+                {
+                    AnalogOutput aot = (AnalogOutput)tag;
+                    if (value < aot.LowLimit)
+                    {
+                        value = aot.LowLimit;
+                    }
+                    else if (value > aot.HighLimit)
+                    {
+                        value = aot.HighLimit;
+                    }
+
+                }
+                else if (tag.GetType() == typeof(DigitalOutput))
+                {
+                    if (value != 0 && value != 1)
+                        return false;
+
+                }
+
+                OutputAddressValues[tag.IOAddress] = value;
+                refreshOutputTagValues();
+                saveTagsToXml();
+                return true;
             }
-           
-            OutputAddressValues[tag.IOAddress] = value;
-            refreshOutputTagValues(); 
-            saveTagsToXml();
-            return true;
+            
         }
 
         internal static string getOutputTagValues()
 
         {
-            //TODO ADD LOCK
-            String info = "-------Output Tag values--------\n";
-
-            foreach (Tag t in TagsDictionary.Values)
+            lock (locker)
             {
-                if (t.GetType().IsSubclassOf(typeof(OutputTag)))
+                String info = "-------Output Tag values--------\n";
+
+                foreach (Tag t in TagsDictionary.Values)
                 {
-                    info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).value + "\n";
+                    if (t.GetType().IsSubclassOf(typeof(OutputTag)))
+                    {
+                        info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).value + "\n";
+                    }
                 }
+
+                info += "--------------------------------\n";
+
+                return info;
             }
-
-            info += "--------------------------------\n";
-
-            return info;
+            
         }
     }
 }
