@@ -1,0 +1,10 @@
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\RealTimeUnit.exe.config
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\RealTimeUnit.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\RealTimeUnit.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\Model.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\EntityFramework.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\Model.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\bin\Debug\EntityFramework.xml
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\obj\Debug\RealTimeUnit.csprojResolveAssemblyReference.cache
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\obj\Debug\RealTimeUnit.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\RealTimeUnit\obj\Debug\RealTimeUnit.pdb
