@@ -17,21 +17,15 @@ namespace CORE
             ServiceHost svc2 = new ServiceHost(typeof(TrendingService));
             ServiceHost svc3 = new ServiceHost(typeof(AlarmDisplayService));
             ServiceHost svc4 = new ServiceHost(typeof(ReportManagerService));
+            ServiceHost svc5 = new ServiceHost(typeof(RealTimeService));
 
             svc.Open();
             svc2.Open();
             svc3.Open();
             svc4.Open();
+            svc5.Open();
+
             Console.WriteLine("Welcome to SCADA");
-
-            //using (var db = new TagValueContext())
-            //{
-            //    var v = (from entry in db.TagValueEntries
-            //            where entry.InputTagId == "6"
-            //            select entry).OrderBy(x => x.DateTime).ToList();
-
-            //    v.ForEach(x => Console.WriteLine(x));
-            //}
 
 
             Console.ReadKey();
@@ -39,6 +33,8 @@ namespace CORE
             svc2.Close();
             svc3.Close();
             svc4.Close();
+            svc5.Close();
+
         }
 
     }

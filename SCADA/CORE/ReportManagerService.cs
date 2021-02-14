@@ -39,8 +39,8 @@ namespace CORE
             using (var db = new TagValueContext())
             {
                 return (from entry in db.TagValueEntries
-                                            where entry.DateTime >= start && entry.DateTime <= end
-                                            select entry).OrderBy(x => x.DateTime).ToList();
+                        where entry.DateTime >= start && entry.DateTime <= end
+                        select entry).OrderBy(x => x.DateTime).ToList();
             }
         }
 

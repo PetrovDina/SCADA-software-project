@@ -4,9 +4,8 @@
     <DigitalInputTag id="2" description="some desc2" IOAddress="1" driverType="1" scanTime="5" scanOn="true" />
   </DigitalInputTags>
   <DigitalOutputTags>
-    <DigitalOutputTag id="3" description="some desc" IOAddress="0" driverType="0" value="2" />
-    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" value="24" />
-    <DigitalOutputTag id="5" description="some desc2" IOAddress="1" driverType="1" value="24" />
+    <DigitalOutputTag id="4" description="some desc2" IOAddress="1" driverType="1" value="0" />
+    <DigitalOutputTag id="5" description="some desc2" IOAddress="1" driverType="1" value="0" />
   </DigitalOutputTags>
   <AnalogInputTags>
     <AnalogInputTag id="6" description="some desc3" IOAddress="2" driverType="0" scanTime="15" scanOn="true" lowLimit="0" highLimit="5" />
