@@ -21,16 +21,18 @@ namespace DatabaseManager
             authProxy = new AuthenticationClient();
             String token = null;
 
+
             while (true)
             {
                 if (authProxy.UserDatabaseEmpty())
                 {
-                    Console.WriteLine("No users in database. Create admin profile > ");
-                    Console.WriteLine("Input admin username:");
+                    Console.WriteLine("================ REGISTER ===================");
+                    Console.WriteLine("No users in database. Create admin profile:  ");
+                    Console.Write("Input admin username > ");
                     string username = Console.ReadLine();
-                    Console.WriteLine("Input admin password:");
+                    Console.Write("Input admin password > ");
                     string password = Console.ReadLine();
-
+                    Console.WriteLine("============================================");
                     if (authProxy.Registration(username, password))
                     {
                         Console.WriteLine("Successfully created admin profile!");
@@ -44,19 +46,22 @@ namespace DatabaseManager
 
                 }
 
+
                 if (token == null)
                 {
                     //A user must sign in first
-                    Console.WriteLine("Log in > ");
-                    Console.WriteLine("Input username:");
+                    Console.WriteLine("============== LOG IN ==============");
+                    Console.Write("Input username > ");
                     string username = Console.ReadLine();
-                    Console.WriteLine("Input password:");
+                    Console.Write("Input password > ");
                     string password = Console.ReadLine();
+                    Console.WriteLine("====================================");
+
 
                     string tempToken = authProxy.Login(username, password);
                     if (tempToken == "Login failed")
                     {
-                        Console.WriteLine("Incorrect username and/or password!");
+                        Console.WriteLine("Incorrect username and/or password! Try again:");
                         continue;
                     }
                     token = tempToken;
@@ -67,7 +72,7 @@ namespace DatabaseManager
 
                 int option = -1;
 
-                while (option != 0)
+                while (option != 0 && token != null)
                 {
                     Console.WriteLine("-------------------------------------");
                     Console.WriteLine("1. Add new digital input tag");
@@ -79,8 +84,17 @@ namespace DatabaseManager
                     Console.WriteLine("7. Set input tag scan on/off");
                     Console.WriteLine("8. Set output tag value");
                     Console.WriteLine("9. Add alarm");
+                    Console.WriteLine("10. LOGOUT");
 
                     Console.WriteLine("-------------------------------------");
+
+                    if (authProxy.IsAdmin(token))
+                    {
+                        Console.WriteLine("11. ADMIN OPTION: Add new user");
+                        Console.WriteLine("-------------------------------------");
+
+                    }
+
                     Console.WriteLine("Pick a number: ");
                     bool success = int.TryParse(Console.ReadLine(), out option);
 
@@ -115,16 +129,21 @@ namespace DatabaseManager
                             case 9:
                                 addAlarm();
                                 break;
+                            case 10:
+                                logout(token);
+                                token = null;
+                                break;
+                            case 11:
+                                addUser(token);
+                                break;
                         }
                     }
                 }
 
             }
 
-
-            Console.ReadKey();
-
         }
+
 
         private static void addAlarm()
         {
@@ -478,6 +497,39 @@ namespace DatabaseManager
             Console.WriteLine("Successfully added new Digital input tag!");
 
 
+
+        }
+
+        //---------------------------------------------------------------------
+        private static void addUser(string token)
+        {
+            if (!authProxy.IsAdmin(token))
+            {
+                Console.WriteLine("Only admins can add new users!");
+                return;
+            }
+            Console.WriteLine("=============== NEW ===============");
+
+            Console.Write("Input username > ");
+            string username = Console.ReadLine();
+            Console.Write("Input password > ");
+
+            string password = Console.ReadLine();
+            Console.WriteLine("===================================");
+
+            if (authProxy.Registration(username, password))
+            {
+                Console.WriteLine("Successfully created new profile!");
+            }
+            else
+            {
+                Console.WriteLine("Problem creating new profile!");
+            }
+        }
+
+        private static void logout(string token)
+        {
+            authProxy.Logout(token);
 
         }
     }

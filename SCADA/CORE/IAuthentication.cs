@@ -21,5 +21,8 @@ namespace CORE
 
         [OperationContract]
         bool UserDatabaseEmpty();
+
+        [OperationContract]
+        bool IsAdmin(string token);
     }
 }

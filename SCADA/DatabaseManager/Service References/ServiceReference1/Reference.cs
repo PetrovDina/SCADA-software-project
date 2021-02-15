@@ -161,6 +161,12 @@ namespace DatabaseManager.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/UserDatabaseEmpty", ReplyAction="http://tempuri.org/IAuthentication/UserDatabaseEmptyResponse")]
         System.Threading.Tasks.Task<bool> UserDatabaseEmptyAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/IsAdmin", ReplyAction="http://tempuri.org/IAuthentication/IsAdminResponse")]
+        bool IsAdmin(string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/IsAdmin", ReplyAction="http://tempuri.org/IAuthentication/IsAdminResponse")]
+        System.Threading.Tasks.Task<bool> IsAdminAsync(string token);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -220,6 +226,14 @@ namespace DatabaseManager.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> UserDatabaseEmptyAsync() {
             return base.Channel.UserDatabaseEmptyAsync();
+        }
+        
+        public bool IsAdmin(string token) {
+            return base.Channel.IsAdmin(token);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsAdminAsync(string token) {
+            return base.Channel.IsAdminAsync(token);
         }
     }
 }

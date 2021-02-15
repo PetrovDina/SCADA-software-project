@@ -19,14 +19,15 @@ namespace Model
 
         public string EncryptedPassword { get; set; }
 
-        public UserType Usertype { get; set; }
+        public UserType UserType { get; set; }
 
         public User() { }
 
-        public User(string username, string encryptedPassword)
+        public User(string username, string encryptedPassword, UserType userType)
         {
             Username = username;
             EncryptedPassword = encryptedPassword;
+            UserType = userType;
         }
     }
 }

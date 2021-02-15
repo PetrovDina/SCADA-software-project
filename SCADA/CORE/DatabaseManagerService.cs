@@ -132,14 +132,28 @@ namespace CORE
 
         public bool Logout(string token)
         {
-            return authenticatedUsers.Remove(token);
+            lock (authenticatedUsers)
+            {
+                return authenticatedUsers.Remove(token);
+
+            }
         }
 
         public bool Registration(string username, string password)
         {
-            //todo add admin if no users
+
+            User user;
             string encryptedPassword = EncryptData(password);
-            User user = new User(username, encryptedPassword);
+
+            if (UserDatabaseEmpty())
+            {
+                user = new User(username, encryptedPassword, UserType.ADMIN);
+            }
+            else
+            {
+                user = new User(username, encryptedPassword, UserType.REGULAR);
+
+            }
             using (var db = new UsersContext())
             {
                 try
@@ -206,9 +220,21 @@ namespace CORE
 
         public bool UserDatabaseEmpty()
         {
+            using (var db = new UsersContext())
+            {
+                return db.Users.ToList().Count == 0;
+            }
+        }
+
+        public bool IsAdmin(string token)
+        {
             lock (authenticatedUsers)
             {
-                return authenticatedUsers.Count == 0;
+                if (authenticatedUsers.ContainsKey(token))
+                {
+                    return authenticatedUsers[token].UserType == UserType.ADMIN;
+                }
+                return false;
 
             }
         }
