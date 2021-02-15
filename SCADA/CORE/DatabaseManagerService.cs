@@ -74,12 +74,12 @@ namespace CORE
 
             if (success)
             {
-                Console.WriteLine("Successfully set value of output tag with id " + id + " to " + value);
+                Console.WriteLine("Successfully set value of output tag!");
             }
 
             else
             {
-                Console.WriteLine("value change failed. Id: " + id);
+                Console.WriteLine("Output tag value change failed. Id: " + id);
 
             }
             return success;
@@ -110,7 +110,6 @@ namespace CORE
 
         //-------------------------------------------------------------------------------------------------------
 
-            //todo add lock?
 
         public string Login(string username, string password)
         {

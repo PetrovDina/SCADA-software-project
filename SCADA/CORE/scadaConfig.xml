@@ -6,17 +6,15 @@
   <DigitalOutputTags>
     <DigitalOutputTag id="4" description="some desc2" IOAddress="1" value="1" />
     <DigitalOutputTag id="5" description="some desc2" IOAddress="1" value="1" />
-    <DigitalOutputTag id="11" description="proba" IOAddress="0" value="0" />
-    <DigitalOutputTag id="12" description="proba2" IOAddress="1" value="1" />
+    <DigitalOutputTag id="11" description="proba" IOAddress="1" value="1" />
   </DigitalOutputTags>
   <AnalogInputTags>
     <AnalogInputTag id="6" description="some desc3" IOAddress="2" driverType="0" scanTime="15" scanOn="true" lowLimit="0" highLimit="5" />
     <AnalogInputTag id="7" description="some desc6" IOAddress="0" driverType="0" scanTime="20" scanOn="true" lowLimit="0" highLimit="8" />
   </AnalogInputTags>
   <AnalogOutputTags>
-    <AnalogOutputTag id="8" description="some desc3" IOAddress="3" value="50" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="9" description="some desc3" IOAddress="3" value="50" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="8" description="some desc3" IOAddress="3" value="66" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="9" description="some desc3" IOAddress="3" value="66" lowLimit="0" highLimit="100" />
     <AnalogOutputTag id="10" description="some desc3" IOAddress="4" value="60" lowLimit="0" highLimit="100" />
-    <AnalogOutputTag id="13" description="proba" IOAddress="3" value="50" lowLimit="20" highLimit="100" />
   </AnalogOutputTags>
 </tags>

@@ -22,11 +22,11 @@ namespace Model
         public DateTime DateTime { get; set; }
 
         [DataMember]
-        public string InputTagId { get; set; }
+        public string TagId { get; set; }
 
         public override string ToString()
         {
-            return $"Tag Value entry = id: {Id}, Value: {Value}, Time: {DateTime}, InputTag: {InputTagId}";
+            return $"Tag Value entry = id: {Id}, Value: {Value}, Time: {DateTime}, TagId: {TagId}";
         }
     }
 }

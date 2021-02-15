@@ -410,7 +410,6 @@ namespace CORE
             lock (locker)
             {
                 t = TagsDictionary[id];
-
             }
 
             if (!t.GetType().IsSubclassOf(typeof(InputTag)))
@@ -626,10 +625,13 @@ namespace CORE
 
                 }
 
+
                 OutputAddressValues[tag.IOAddress] = value;
                 refreshOutputTagValues();
                 saveTagsToXml();
-                //todo save to database
+                DateTime time = DateTime.Now;
+                TagValueDatabase.addTagValueToDatabase(tag, value, time);
+
                 return true;
             }
             

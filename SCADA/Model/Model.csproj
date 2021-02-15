@@ -70,6 +70,10 @@
     <Compile Include="Migrations\202102131119200_ImeMigracije.designer.cs">
       <DependentUpon>202102131119200_ImeMigracije.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102151146142_proba.cs" />
+    <Compile Include="Migrations\202102151146142_proba.designer.cs">
+      <DependentUpon>202102151146142_proba.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OutputTag.cs" />
     <Compile Include="Tag.cs" />
@@ -90,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102131119200_ImeMigracije.resx">
       <DependentUpon>202102131119200_ImeMigracije.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102151146142_proba.resx">
+      <DependentUpon>202102151146142_proba.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -68,7 +68,7 @@ namespace CORE
             using (var db = new TagValueContext())
             {
                 return  (from entry in db.TagValueEntries
-                        where entry.InputTagId == id
+                        where entry.TagId == id
                         select entry).OrderBy(x => x.DateTime).ToList();
 
             }
@@ -79,14 +79,14 @@ namespace CORE
         private static Func<TagValueEntry, bool> IsAnalogInput()
         {
             return x => (
-                TagProcessing.getTagById(x.InputTagId) is AnalogInput
+                TagProcessing.getTagById(x.TagId) is AnalogInput
                 );
         }
 
         private static Func<TagValueEntry, bool> IsDigitalInput()
         {
             return x => (
-                TagProcessing.getTagById(x.InputTagId) is DigitalInput
+                TagProcessing.getTagById(x.TagId) is DigitalInput
                 );
         }
 

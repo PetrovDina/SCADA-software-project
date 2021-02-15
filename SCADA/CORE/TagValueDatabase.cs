@@ -17,7 +17,7 @@ namespace CORE
             {
                 TagValueEntry entry = new TagValueEntry
                 {
-                    InputTagId = t.Id,
+                    TagId = t.Id,
                     DateTime = time,
                     Value = value,
                 };
