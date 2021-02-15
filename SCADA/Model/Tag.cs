@@ -24,8 +24,8 @@ namespace Model {
         [DataMember]
         public string IOAddress { get; set; }
 
-        [DataMember]
-        public DriverType DriverType { get; set; }
+        //[DataMember]
+        //public DriverType DriverType { get; set; }
 
         //public Tag(string id, string desc, string addr, DriverType dt)
         //{
@@ -37,7 +37,7 @@ namespace Model {
 
         public override string ToString()
         {
-            return $"Id: {Id}, Desc: {Description}, IOAddress: {IOAddress}, DriverType: {DriverType} ";
+            return $"Id: {Id}, Desc: {Description}, IOAddress: {IOAddress} ";
         }
 
     }

@@ -77,7 +77,6 @@ namespace CORE
         internal static bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority, string alarmId = null)
         {
 
-
             lock (locker)
             {
                 if (!TagsDictionary.ContainsKey(id))
@@ -239,7 +238,6 @@ namespace CORE
                                                       Id = (string)di.Attribute("id"),
                                                       Description = (string)di.Attribute("description"),
                                                       IOAddress = (string)di.Attribute("IOAddress"),
-                                                      DriverType = (DriverType)(int)di.Attribute("driverType"),
                                                       value = (double)di.Attribute("value"),
 
                                                   }).ToList();
@@ -272,7 +270,6 @@ namespace CORE
                                                     Id = (string)di.Attribute("id"),
                                                     Description = (string)di.Attribute("description"),
                                                     IOAddress = (string)di.Attribute("IOAddress"),
-                                                    DriverType = (DriverType)(int)di.Attribute("driverType"),
                                                     value = (double)di.Attribute("value"),
                                                     LowLimit = (double)di.Attribute("lowLimit"),
                                                     HighLimit = (double)di.Attribute("highLimit"),
@@ -309,7 +306,6 @@ namespace CORE
                                             new XAttribute("id", tag.Id),
                                             new XAttribute("description", tag.Description),
                                             new XAttribute("IOAddress", tag.IOAddress),
-                                            new XAttribute("driverType", (int)tag.DriverType),
                                             new XAttribute("value", tag.value)
                                             ));
 
@@ -337,7 +333,6 @@ namespace CORE
                                            new XAttribute("id", tag.Id),
                                            new XAttribute("description", tag.Description),
                                            new XAttribute("IOAddress", tag.IOAddress),
-                                           new XAttribute("driverType", (int)tag.DriverType),
                                            new XAttribute("value", tag.value),
                                            new XAttribute("lowLimit", tag.LowLimit),
                                            new XAttribute("highLimit", tag.HighLimit)
@@ -439,7 +434,7 @@ namespace CORE
 
                 else
                 {
-                    //todo runtime simulation
+                    //Real time driver
                     valueNull = RealTimeService.getValueByAddress(itag.IOAddress);
                     if (valueNull == null)
                     {
@@ -487,7 +482,7 @@ namespace CORE
 
                 DateTime time = DateTime.Now;
 
-                lock (locker) //todo check if ok
+                lock (locker) 
                 {
                     TagValueDatabase.addTagValueToDatabase(t, value, time);
 
@@ -562,7 +557,6 @@ namespace CORE
                 }
 
                 TagsDictionary.Remove(id);
-                Alarms.Keys.ToList().ForEach(x => Console.WriteLine(x));
                 Alarms.Remove(id);
 
                 saveTagsToXml();
@@ -635,6 +629,7 @@ namespace CORE
                 OutputAddressValues[tag.IOAddress] = value;
                 refreshOutputTagValues();
                 saveTagsToXml();
+                //todo save to database
                 return true;
             }
             
@@ -651,7 +646,7 @@ namespace CORE
                 {
                     if (t.GetType().IsSubclassOf(typeof(OutputTag)))
                     {
-                        info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).value + "\n";
+                        info += t.ToString() + "\n\t\tVALUE: " + ((OutputTag)t).value + "\n\n";
                     }
                 }
 

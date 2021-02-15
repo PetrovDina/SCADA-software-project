@@ -275,16 +275,6 @@ namespace DatabaseManager
             Console.WriteLine("Enter IOAddress: ");
             string IOAddress = Console.ReadLine();
 
-            Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
-            int driverTypeInt = -1;
-            int.TryParse(Console.ReadLine(), out driverTypeInt);
-            if (driverTypeInt != 0 && driverTypeInt != 1)
-            {
-                Console.WriteLine("Wrong driver number!");
-                return;
-            }
-
-
 
             Console.WriteLine("Enter low limit: ");
             double lowLimit = -1;
@@ -325,7 +315,6 @@ namespace DatabaseManager
             {
                 Description = description,
                 IOAddress = IOAddress,
-                DriverType = (DriverType)driverTypeInt,
                 value = initialValue,
                 LowLimit = lowLimit,
                 HighLimit = highLimit
@@ -415,15 +404,6 @@ namespace DatabaseManager
             Console.WriteLine("Enter IOAddress: ");
             string IOAddress = Console.ReadLine();
 
-            Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
-            int driverTypeInt = -1;
-            int.TryParse(Console.ReadLine(), out driverTypeInt);
-            if (driverTypeInt != 0 && driverTypeInt != 1)
-            {
-                Console.WriteLine("Wrong driver number!");
-                return;
-            }
-
             double initialValue = -1;
             Console.WriteLine("Enter initial value: (0 or 1) ");
             double.TryParse(Console.ReadLine(), out initialValue);
@@ -439,7 +419,6 @@ namespace DatabaseManager
             {
                 Description = description,
                 IOAddress = IOAddress,
-                DriverType = (DriverType)driverTypeInt,
                 value = initialValue
             };
 

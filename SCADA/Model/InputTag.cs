@@ -13,6 +13,9 @@ namespace Model
     public abstract class InputTag : Tag
     {
         [DataMember]
+        public DriverType DriverType { get; set; }
+
+        [DataMember]
         public int ScanTime { get; set; }
 
         [DataMember]
@@ -28,7 +31,7 @@ namespace Model
 
         public override string ToString()
         {
-            return base.ToString() + $"ScanTime: {ScanTime}, ScanOn: {ScanOn}";
+            return base.ToString() + $"DriverType: {DriverType}, ScanTime: {ScanTime}, ScanOn: {ScanOn}";
         }
     }
 }

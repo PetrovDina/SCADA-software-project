@@ -4,19 +4,11 @@
   <xs:complexType name="Tag">
     <xs:sequence>
       <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DriverType" type="tns:DriverType" />
       <xs:element minOccurs="0" name="IOAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Tag" nillable="true" type="tns:Tag" />
-  <xs:simpleType name="DriverType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="SIMULATION" />
-      <xs:enumeration value="REAL_TIME" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="DriverType" nillable="true" type="tns:DriverType" />
   <xs:complexType name="DigitalInput">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:InputTag">
@@ -29,6 +21,7 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Tag">
         <xs:sequence>
+          <xs:element minOccurs="0" name="DriverType" type="tns:DriverType" />
           <xs:element minOccurs="0" name="ScanOn" type="xs:boolean" />
           <xs:element minOccurs="0" name="ScanTime" type="xs:int" />
         </xs:sequence>
@@ -36,6 +29,13 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="InputTag" nillable="true" type="tns:InputTag" />
+  <xs:simpleType name="DriverType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SIMULATION" />
+      <xs:enumeration value="REAL_TIME" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DriverType" nillable="true" type="tns:DriverType" />
   <xs:complexType name="AnalogInput">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:InputTag">
