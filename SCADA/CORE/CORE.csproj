@@ -61,6 +61,7 @@
     <Compile Include="AlarmDisplayService.cs" />
     <Compile Include="IAlarm.cs" />
     <Compile Include="IAlarmCallback.cs" />
+    <Compile Include="IAuthentication.cs" />
     <Compile Include="IDatabaseManager.cs" />
     <Compile Include="COREMain.cs" />
     <Compile Include="IRealTime.cs" />

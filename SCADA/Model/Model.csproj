@@ -77,6 +77,8 @@
     <Compile Include="AlarmEntry.cs" />
     <Compile Include="TagValueContext.cs" />
     <Compile Include="TagValueEntry.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UsersContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

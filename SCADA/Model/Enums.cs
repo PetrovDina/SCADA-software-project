@@ -21,4 +21,9 @@ namespace Model
     {
         LOW = 1, MEDIUM, HIGH
     }
+
+    public enum UserType
+    {
+        ADMIN, REGULAR
+    }
 }

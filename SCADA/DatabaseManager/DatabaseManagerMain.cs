@@ -11,64 +11,114 @@ namespace DatabaseManager
     class DatabaseManagerMain
     {
         static DatabaseManagerClient proxy;
+        static AuthenticationClient authProxy;
+
 
         static void Main(string[] args)
         {
 
             proxy = new DatabaseManagerClient();
+            authProxy = new AuthenticationClient();
+            String token = null;
 
-            int option = -1;
-
-            while (option != 0)
+            while (true)
             {
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine("1. Add new digital input tag");
-                Console.WriteLine("2. Add new digital output tag");
-                Console.WriteLine("3. Add new analog input tag");
-                Console.WriteLine("4. Add new analog output tag");
-                Console.WriteLine("5. Read output tag values");
-                Console.WriteLine("6. Delete tag by ID");
-                Console.WriteLine("7. Set input tag scan on/off");
-                Console.WriteLine("8. Set output tag value");
-                Console.WriteLine("9. Add alarm");
-
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine("Pick a number: ");
-                bool success = int.TryParse(Console.ReadLine(), out option);
-
-                if (success)
+                if (authProxy.UserDatabaseEmpty())
                 {
-                    switch (option)
+                    Console.WriteLine("No users in database. Create admin profile > ");
+                    Console.WriteLine("Input admin username:");
+                    string username = Console.ReadLine();
+                    Console.WriteLine("Input admin password:");
+                    string password = Console.ReadLine();
+
+                    if (authProxy.Registration(username, password))
                     {
-                        case 1:
-                            addDigitalInput();
-                            break;
-                        case 2:
-                            addDigitalOutput();
-                            break;
-                        case 3:
-                            addAnalogInput();
-                            break;
-                        case 4:
-                            addAnalogOutput();
-                            break;
-                        case 5:
-                            displayOutputValues();
-                            break;
-                        case 6:
-                            deleteTagById();
-                            break;
-                        case 7:
-                            setTagScan();
-                            break;
-                        case 8:
-                            setOutputValue();
-                            break;
-                        case 9:
-                            addAlarm();
-                            break;
+                        Console.WriteLine("Successfully created admin profile!");
+                        token = authProxy.Login(username, password);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Problem creating admin profile!");
+                        continue;
+                    }
+
+                }
+
+                if (token == null)
+                {
+                    //A user must sign in first
+                    Console.WriteLine("Log in > ");
+                    Console.WriteLine("Input username:");
+                    string username = Console.ReadLine();
+                    Console.WriteLine("Input password:");
+                    string password = Console.ReadLine();
+
+                    string tempToken = authProxy.Login(username, password);
+                    if (tempToken == "Login failed")
+                    {
+                        Console.WriteLine("Incorrect username and/or password!");
+                        continue;
+                    }
+                    token = tempToken;
+                }
+
+
+
+
+                int option = -1;
+
+                while (option != 0)
+                {
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine("1. Add new digital input tag");
+                    Console.WriteLine("2. Add new digital output tag");
+                    Console.WriteLine("3. Add new analog input tag");
+                    Console.WriteLine("4. Add new analog output tag");
+                    Console.WriteLine("5. Read output tag values");
+                    Console.WriteLine("6. Delete tag by ID");
+                    Console.WriteLine("7. Set input tag scan on/off");
+                    Console.WriteLine("8. Set output tag value");
+                    Console.WriteLine("9. Add alarm");
+
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine("Pick a number: ");
+                    bool success = int.TryParse(Console.ReadLine(), out option);
+
+                    if (success)
+                    {
+                        switch (option)
+                        {
+                            case 1:
+                                addDigitalInput();
+                                break;
+                            case 2:
+                                addDigitalOutput();
+                                break;
+                            case 3:
+                                addAnalogInput();
+                                break;
+                            case 4:
+                                addAnalogOutput();
+                                break;
+                            case 5:
+                                displayOutputValues();
+                                break;
+                            case 6:
+                                deleteTagById();
+                                break;
+                            case 7:
+                                setTagScan();
+                                break;
+                            case 8:
+                                setOutputValue();
+                                break;
+                            case 9:
+                                addAlarm();
+                                break;
+                        }
                     }
                 }
+
             }
 
 
