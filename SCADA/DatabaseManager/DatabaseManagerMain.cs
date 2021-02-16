@@ -95,7 +95,7 @@ namespace DatabaseManager
 
                     }
 
-                    Console.WriteLine("Pick a number: ");
+                    Console.Write("Pick a number: ");
                     bool success = int.TryParse(Console.ReadLine(), out option);
 
                     if (success)
@@ -147,37 +147,44 @@ namespace DatabaseManager
 
         private static void addAlarm()
         {
-            Console.WriteLine("Enter input tag id for alarm: ");
+            Console.Write("Enter input tag id for alarm: ");
             string id = Console.ReadLine();
 
             int option = -1;
-            Console.WriteLine("Enter 1 for high alarm type or 0 for low alarm type");
+            Console.Write("Enter 1 for high alarm type or 0 for low alarm type: ");
             bool parsed = int.TryParse(Console.ReadLine(), out option);
 
             if ( !parsed || (option != 0 && option != 1))
             {
                 Console.WriteLine("Incorrect input for alarm type!");
+                Console.WriteLine();
                 return;
+
             }
+
 
         
             double limit = -1;
-            Console.WriteLine("Enter alarm limit");
+            Console.Write("Enter alarm limit: ");
             bool parsedDouble = Double.TryParse(Console.ReadLine(), out limit);
 
             if (!parsedDouble)
             {
                 Console.WriteLine("Incorrect input for alarm limit!");
+                Console.WriteLine();
+
                 return;
             }
 
             int priority = -1;
-            Console.WriteLine("Enter alarm priority: 1, 2, 3");
+            Console.Write("Enter alarm priority: 1, 2, 3: ");
             bool parsedPriority = int.TryParse(Console.ReadLine(), out priority);
 
             if (!parsedPriority || (priority != 1 && priority != 2 && priority != 3))
             {
                 Console.WriteLine("Incorrect input for alarm priority!");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -189,6 +196,7 @@ namespace DatabaseManager
             {
                 Console.WriteLine("Failed to add alarm!");
             }
+            Console.WriteLine();
 
 
 
@@ -196,15 +204,16 @@ namespace DatabaseManager
 
         private static void setOutputValue()
         {
-            Console.WriteLine("Enter output tag id for value: ");
+            Console.Write("Enter output tag id for value: ");
             string id = Console.ReadLine();
 
-            Console.WriteLine("Enter new value: ");
+            Console.Write("Enter new value: ");
             double value = -1;
             bool parsed = double.TryParse(Console.ReadLine(), out value);
             if (!parsed)
             {
                 Console.WriteLine("Bad value!");
+                Console.WriteLine();
                 return;
             }
 
@@ -217,21 +226,24 @@ namespace DatabaseManager
             {
                 Console.WriteLine("Failed to change output tag value");
             }
+            Console.WriteLine();
 
         }
 
         private static void setTagScan()
         {
-            Console.WriteLine("Enter tag id for scan change: ");
+            Console.Write("Enter tag id for scan change: ");
             string id = Console.ReadLine();
 
             int option = -1;
-            Console.WriteLine("Enter 1 for scan on or 0 for scan off");
+            Console.Write("Enter 1 for scan on or 0 for scan off: ");
             bool parsed = int.TryParse(Console.ReadLine(), out option);
 
             if (!parsed || (option != 0 && option != 1))
             {
                 Console.WriteLine("Incorrect scan on off input");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -246,11 +258,13 @@ namespace DatabaseManager
             {
                 Console.WriteLine("Failed to change scan for tag with id " + id);
             }
+            Console.WriteLine();
+
         }
 
         private static void deleteTagById()
         {
-            Console.WriteLine("Enter tag id for deletion: ");
+            Console.Write("Enter tag id for deletion: ");
             string id = Console.ReadLine();
             bool success = proxy.removeTag(id);
             if (success)
@@ -261,52 +275,64 @@ namespace DatabaseManager
             {
                 Console.WriteLine("Failed to remove id with id " + id);
             }
+            Console.WriteLine();
+
         }
 
         private static void displayOutputValues()
         {
-            Console.WriteLine(proxy.showOutputTagValues()); 
+            Console.WriteLine(proxy.showOutputTagValues());
+            Console.WriteLine();
+
         }
 
         private static void addAnalogOutput()
         {
-            Console.WriteLine("Enter description: ");
+            Console.Write("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress 3, 4 or 5: ");
+            Console.Write("Enter IOAddress 3, 4 or 5: ");
             string IOAddress = Console.ReadLine();
 
-            if (IOAddress != "3" || IOAddress != "4" || IOAddress != "5")
+            if (IOAddress != "3" && IOAddress != "4" && IOAddress != "5")
             {
-                Console.WriteLine("Not an analog output address!!!");
+                Console.WriteLine("Not an analog output address!");
+                Console.WriteLine();
+
                 return;
             }
 
 
-            Console.WriteLine("Enter low limit: ");
+            Console.Write("Enter low limit: ");
             double lowLimit = -1;
             bool parsed = double.TryParse(Console.ReadLine(), out lowLimit);
             if (!parsed)
             {
                 Console.WriteLine("Bad low limit!");
+                Console.WriteLine();
+
                 return;
             }
 
-            Console.WriteLine("Enter high limit: ");
+            Console.Write("Enter high limit: ");
             double highLimit = -1;
             parsed = double.TryParse(Console.ReadLine(), out highLimit);
             if (!parsed)
             {
                 Console.WriteLine("Bad high limit!");
+                Console.WriteLine();
+
                 return;
             }
 
             double initialValue = -1;
-            Console.WriteLine("Enter initial value: ");
+            Console.Write("Enter initial value: ");
             parsed = double.TryParse(Console.ReadLine(), out initialValue);
             if (!parsed)
             {
                 Console.WriteLine("Bad initial value");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -314,6 +340,8 @@ namespace DatabaseManager
             if (initialValue < lowLimit || initialValue > highLimit)
             {
                 Console.WriteLine("Initial value must be within low and high limit range!");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -329,60 +357,72 @@ namespace DatabaseManager
 
             proxy.addTag(tag);
             Console.WriteLine("Successfully added new Analog output tag!");
+            Console.WriteLine();
+
         }
 
 
         private static void addAnalogInput()
         {
-            Console.WriteLine("Enter description: ");
+            Console.Write("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress: ");
+            Console.Write("Enter IOAddress: ");
             string IOAddress = Console.ReadLine();
 
-            Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
+            Console.Write("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
             int driverTypeInt = -1;
             bool parsed = int.TryParse(Console.ReadLine(), out driverTypeInt);
             if (!parsed || (driverTypeInt != 0 && driverTypeInt != 1))
             {
                 Console.WriteLine("Wrong driver number!");
+                Console.WriteLine();
+
                 return;
             }
 
-            Console.WriteLine("Enter scanTime: ");
+            Console.Write("Enter scanTime: ");
             int scanTime = -1;
             parsed = int.TryParse(Console.ReadLine(), out scanTime);
             if (!parsed || scanTime <= 0)
             {
                 Console.WriteLine("Bad seconds!");
+                Console.WriteLine();
+
                 return;
             }
 
-            Console.WriteLine("Enter 1 for scanOn = true or 0 for scanOn = false: ");
+            Console.Write("Enter 1 for scanOn = true or 0 for scanOn = false: ");
             int scanOnInt = -1;
             parsed = int.TryParse(Console.ReadLine(), out scanOnInt);
             if (!parsed || (scanOnInt != 0 && scanOnInt != 1))
             {
                 Console.WriteLine("Bad scanOn!");
+                Console.WriteLine();
+
                 return;
             }
             bool scanOn = scanOnInt == 1 ? true : false;
 
-            Console.WriteLine("Enter low limit: ");
+            Console.Write("Enter low limit: ");
             double lowLimit = -1;
             parsed = double.TryParse(Console.ReadLine(), out lowLimit);
             if (!parsed)
             {
                 Console.WriteLine("Bad low limit!");
+                Console.WriteLine();
+
                 return;
             }
 
-            Console.WriteLine("Enter high limit: ");
+            Console.Write("Enter high limit: ");
             double highLimit = -1;
             parsed = double.TryParse(Console.ReadLine(), out highLimit);
             if (!parsed)
             {
                 Console.WriteLine("Bad high limit!");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -400,30 +440,36 @@ namespace DatabaseManager
 
             proxy.addTag(tag);
             Console.WriteLine("Successfully added new analog input tag!");
+            Console.WriteLine();
+
         }
 
 
         private static void addDigitalOutput()
         {
-            Console.WriteLine("Enter description: ");
+            Console.Write("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress 0, 1, or 2: ");
+            Console.Write("Enter IOAddress 0, 1, or 2: ");
             string IOAddress = Console.ReadLine();
 
-            if (IOAddress != "0" || IOAddress != "1" || IOAddress != "2")
+            if (IOAddress != "0" && IOAddress != "1" && IOAddress != "2")
             {
-                Console.WriteLine("Not a digital output address!!!");
+                Console.WriteLine("Not a digital output address!");
+                Console.WriteLine();
+
                 return;
             }
                 
 
             double initialValue = -1;
-            Console.WriteLine("Enter initial value: (0 or 1) ");
+            Console.Write("Enter initial value (0 or 1): ");
             bool parsed = double.TryParse(Console.ReadLine(), out initialValue);
             if (!parsed || (initialValue != 0 && initialValue != 1))
             {
                 Console.WriteLine("Bad initial value!");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -438,32 +484,37 @@ namespace DatabaseManager
 
             proxy.addTag(tag);
             Console.WriteLine("Successfully added new Digital output tag!");
+            Console.WriteLine();
+
         }
 
         private static void addDigitalInput()
         {
-            Console.WriteLine("Enter description: ");
+            Console.Write("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress: ");
+            Console.Write("Enter IOAddress: ");
             string IOAddress = Console.ReadLine();
 
-            Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
+            Console.Write("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
             int driverTypeInt = -1;
             bool parsed = int.TryParse(Console.ReadLine(), out driverTypeInt);
             if (!parsed || (driverTypeInt != 0 && driverTypeInt != 1))
             {
                 Console.WriteLine("Wrong driver number!");
+                Console.WriteLine();
+
                 return;
             }
 
-            Console.WriteLine("Enter scanTime: ");
+            Console.Write("Enter scanTime: ");
             int scanTime = -1;
             parsed = int.TryParse(Console.ReadLine(), out scanTime);
-            Console.WriteLine("Entered scan time is: " + scanTime);
             if (!parsed || scanTime <= 0)
             {
-                Console.WriteLine("Bad seconds!");
+                Console.WriteLine("Incorrect scan time input!");
+                Console.WriteLine();
+
                 return;
             }
 
@@ -472,7 +523,9 @@ namespace DatabaseManager
             parsed = int.TryParse(Console.ReadLine(), out scanOnInt);
             if (!parsed || (scanOnInt != 0 && scanOnInt != 1))
             {
-                Console.WriteLine("Bad scanOn!");
+                Console.WriteLine("Incorrect scanOn input!");
+                Console.WriteLine();
+
                 return;
             }
             bool scanOn = scanOnInt == 1 ? true : false;
@@ -488,8 +541,7 @@ namespace DatabaseManager
 
             proxy.addTag(tag);
             Console.WriteLine("Successfully added new Digital input tag!");
-
-
+            Console.WriteLine();
 
         }
 
@@ -499,6 +551,8 @@ namespace DatabaseManager
             if (!authProxy.IsAdmin(token))
             {
                 Console.WriteLine("Only admins can add new users!");
+                Console.WriteLine();
+
                 return;
             }
             Console.WriteLine("=============== NEW ===============");
@@ -518,11 +572,14 @@ namespace DatabaseManager
             {
                 Console.WriteLine("Problem creating new profile!");
             }
+            Console.WriteLine();
+
         }
 
         private static void logout(string token)
         {
             authProxy.Logout(token);
+            Console.WriteLine();
 
         }
     }

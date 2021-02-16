@@ -26,7 +26,7 @@ namespace Model
 
         public override string ToString()
         {
-            return $"Tag Value entry = id: {Id}, Value: {Value}, Time: {DateTime}, TagId: {TagId}";
+            return $"Tag Value entry = id: {Id}, TagId: {TagId}, Time: {DateTime}, Value: {Value}";
         }
     }
 }

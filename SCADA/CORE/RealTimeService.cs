@@ -19,6 +19,7 @@ namespace CORE
 
         static object locker = new object();
 
+
         public bool register(string address, string publicKeyPath)
         {
             lock (keys)
@@ -33,10 +34,9 @@ namespace CORE
 
                 return true;
             }
-            
-
 
         }
+
 
         public void sendValue(string address, double value, byte[] signature)
         {

@@ -35,7 +35,7 @@ namespace Model
 
         public override string ToString()
         {
-            return $"Alarm entry = id: {Id}, Value: {Value}, Time: {DateTime}, Priority: {Priority}, InputTag: {InputTagId}, AlarmId: {AlarmId}";
+            return $"Alarm entry = id: {Id}, Priority: {Priority}, InputTag: {InputTagId}, AlarmId: {AlarmId}, Time: {DateTime}, Value: {Value}";
         }
     }
 

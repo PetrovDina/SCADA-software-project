@@ -9,7 +9,7 @@ namespace CORE
 {
     class AlarmDisplayService : IAlarm
     {
-        static IAlarmCallback proxy = null; //todo maybe put in trendingInit method
+        static IAlarmCallback proxy = null; 
 
         public void alarmInit()
         {

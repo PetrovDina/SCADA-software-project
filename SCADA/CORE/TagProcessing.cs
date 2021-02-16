@@ -437,7 +437,7 @@ namespace CORE
                     valueNull = RealTimeService.getValueByAddress(itag.IOAddress);
                     if (valueNull == null)
                     {
-                        continue;  //if value is null that means there is no RTU at that address
+                        continue;  //if value is null that means there is no RTU registered at that address
                     }
                     else
                     {

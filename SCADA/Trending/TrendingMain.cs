@@ -18,6 +18,7 @@ namespace Trending
             proxy = new TrendingClient(new InstanceContext(new TrendingCallback()));
             proxy.trendingInit();
             Console.WriteLine("Successfully subscribed");
+            Console.WriteLine("-----------------------");
             Console.ReadLine();
 
         }

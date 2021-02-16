@@ -17,6 +17,7 @@ namespace AlarmDisplay
             proxy = new AlarmClient(new InstanceContext(new AlarmCallback()));
             proxy.alarmInit();
             Console.WriteLine("Successfully subscribed");
+            Console.WriteLine("-----------------------");
             Console.ReadLine();
 
         }

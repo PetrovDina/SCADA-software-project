@@ -18,7 +18,6 @@ namespace RealTimeUnit
 
         static void Main(string[] args)
         {
-            //todo put in while loop
 
             Console.WriteLine("Input address: ");
             string address = Console.ReadLine();

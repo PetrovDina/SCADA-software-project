@@ -19,6 +19,7 @@ namespace ReportManager
 
             while (option != 0)
             {
+                Console.WriteLine();
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("1. Show alarms by time interval");
                 Console.WriteLine("2. Show alarms by priority");
