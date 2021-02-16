@@ -1,0 +1,10 @@
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\ReportManager.exe.config
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\ReportManager.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\ReportManager.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\Model.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\EntityFramework.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\Model.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\bin\Debug\EntityFramework.xml
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\obj\Debug\ReportManager.csprojResolveAssemblyReference.cache
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\obj\Debug\ReportManager.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\ReportManager\obj\Debug\ReportManager.pdb

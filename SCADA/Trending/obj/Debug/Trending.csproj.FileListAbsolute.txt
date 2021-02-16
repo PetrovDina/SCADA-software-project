@@ -1,0 +1,12 @@
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\Trending.exe.config
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\Trending.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\Trending.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\Model.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\Model.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\obj\Debug\Trending.exe
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\obj\Debug\Trending.pdb
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\obj\Debug\Trending.csprojResolveAssemblyReference.cache
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\EntityFramework.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\EntityFramework.xml
+C:\Users\lazyd\Desktop\SNUS PROJEKAT\SNUS_SCADA\SCADA\Trending\bin\Debug\EntityFramework.SqlServer.xml
