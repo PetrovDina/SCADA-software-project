@@ -158,6 +158,35 @@ namespace CORE
             
         }
 
+        internal static bool deleteAlarm(string id)
+        {
+            lock (locker)
+            {
+                Alarm forDeletion = getAlarmById(id);
+                if (forDeletion == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    foreach (List<Alarm> list in Alarms.Values)
+                    {
+                        foreach (Alarm a in list)
+                        {
+                            if (a == forDeletion)
+                            {
+                                list.Remove(a);
+                                saveAlarmsToXml();
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+
+                }
+            }
+        }
+
         internal static Tag getTagById(string inputTagId)
         {
             lock (locker)

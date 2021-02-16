@@ -107,6 +107,22 @@ namespace CORE
             return TagProcessing.getOutputTagValues();
         }
 
+        public bool deleteTagAlarm(string id)
+        {
+            bool success = TagProcessing.deleteAlarm(id);
+
+            if (success)
+            {
+                Console.WriteLine("Successfully deleted alarm with id " + id);
+            }
+            else
+            {
+                Console.WriteLine("Failed to delete alarm. Id: " + id);
+
+            }
+            return success;
+        }
+
 
         //-------------------------------------------------------------------------------------------------------
 
@@ -237,5 +253,7 @@ namespace CORE
 
             }
         }
+
+
     }
 }

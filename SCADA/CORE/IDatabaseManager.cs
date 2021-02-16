@@ -30,6 +30,10 @@ namespace CORE
         [OperationContract]
         bool addTagAlarm(string id, AlarmType alarmType, double limit, AlarmPriority priority);
 
+        [OperationContract]
+        bool deleteTagAlarm(string id);
+
+
 
     }
 }

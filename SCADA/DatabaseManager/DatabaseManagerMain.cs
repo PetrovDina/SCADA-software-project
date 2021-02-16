@@ -84,13 +84,15 @@ namespace DatabaseManager
                     Console.WriteLine("7. Set input tag scan on/off");
                     Console.WriteLine("8. Set output tag value");
                     Console.WriteLine("9. Add alarm");
-                    Console.WriteLine("10. LOGOUT");
+                    Console.WriteLine("10. Add alarm");
+
+                    Console.WriteLine("11. LOGOUT");
 
                     Console.WriteLine("-------------------------------------");
 
                     if (authProxy.IsAdmin(token))
                     {
-                        Console.WriteLine("11. ADMIN OPTION: Add new user");
+                        Console.WriteLine("12. ADMIN OPTION: Add new user");
                         Console.WriteLine("-------------------------------------");
 
                     }
@@ -130,10 +132,13 @@ namespace DatabaseManager
                                 addAlarm();
                                 break;
                             case 10:
+                                deleteAlarm();
+                                break;
+                            case 11:
                                 logout(token);
                                 token = null;
                                 break;
-                            case 11:
+                            case 12:
                                 addUser(token);
                                 break;
                         }
@@ -144,6 +149,22 @@ namespace DatabaseManager
 
         }
 
+        private static void deleteAlarm()
+        {
+            Console.Write("Enter alarm id for deletion: ");
+            string id = Console.ReadLine();
+
+            if (proxy.deleteTagAlarm(id))
+            {
+                Console.WriteLine("Successfully deleted alarm");
+            }
+            else
+            {
+                Console.WriteLine("Failed to delete alarm!");
+            }
+            Console.WriteLine();
+
+        }
 
         private static void addAlarm()
         {

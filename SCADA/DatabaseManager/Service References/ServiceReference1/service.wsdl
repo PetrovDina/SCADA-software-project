@@ -43,6 +43,12 @@
   <wsdl:message name="IDatabaseManager_addTagAlarm_OutputMessage">
     <wsdl:part name="parameters" element="tns:addTagAlarmResponse" />
   </wsdl:message>
+  <wsdl:message name="IDatabaseManager_deleteTagAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteTagAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IDatabaseManager_deleteTagAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteTagAlarmResponse" />
+  </wsdl:message>
   <wsdl:message name="IAuthentication_Registration_InputMessage">
     <wsdl:part name="parameters" element="tns:Registration" />
   </wsdl:message>
@@ -97,6 +103,10 @@
     <wsdl:operation name="addTagAlarm">
       <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseManager/addTagAlarm" message="tns:IDatabaseManager_addTagAlarm_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseManager/addTagAlarmResponse" message="tns:IDatabaseManager_addTagAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteTagAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDatabaseManager/deleteTagAlarm" message="tns:IDatabaseManager_deleteTagAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDatabaseManager/deleteTagAlarmResponse" message="tns:IDatabaseManager_deleteTagAlarm_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IAuthentication">
@@ -170,6 +180,15 @@
     </wsdl:operation>
     <wsdl:operation name="addTagAlarm">
       <soap:operation soapAction="http://tempuri.org/IDatabaseManager/addTagAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTagAlarm">
+      <soap:operation soapAction="http://tempuri.org/IDatabaseManager/deleteTagAlarm" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

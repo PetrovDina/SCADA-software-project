@@ -56,6 +56,12 @@ namespace DatabaseManager.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/addTagAlarm", ReplyAction="http://tempuri.org/IDatabaseManager/addTagAlarmResponse")]
         System.Threading.Tasks.Task<bool> addTagAlarmAsync(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/deleteTagAlarm", ReplyAction="http://tempuri.org/IDatabaseManager/deleteTagAlarmResponse")]
+        bool deleteTagAlarm(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabaseManager/deleteTagAlarm", ReplyAction="http://tempuri.org/IDatabaseManager/deleteTagAlarmResponse")]
+        System.Threading.Tasks.Task<bool> deleteTagAlarmAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -131,6 +137,14 @@ namespace DatabaseManager.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> addTagAlarmAsync(string id, Model.AlarmType alarmType, double limit, Model.AlarmPriority priority) {
             return base.Channel.addTagAlarmAsync(id, alarmType, limit, priority);
+        }
+        
+        public bool deleteTagAlarm(string id) {
+            return base.Channel.deleteTagAlarm(id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> deleteTagAlarmAsync(string id) {
+            return base.Channel.deleteTagAlarmAsync(id);
         }
     }
     
