@@ -165,7 +165,7 @@ namespace DatabaseManager
             Console.WriteLine("Enter alarm limit");
             bool parsedDouble = Double.TryParse(Console.ReadLine(), out limit);
 
-            if (!parsedDouble )
+            if (!parsedDouble)
             {
                 Console.WriteLine("Incorrect input for alarm limit!");
                 return;
@@ -201,10 +201,10 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter new value: ");
             double value = -1;
-            double.TryParse(Console.ReadLine(), out value);
-            if (value == -1)
+            bool parsed = double.TryParse(Console.ReadLine(), out value);
+            if (!parsed)
             {
-                Console.WriteLine("Bad value");
+                Console.WriteLine("Bad value!");
                 return;
             }
 
@@ -229,11 +229,12 @@ namespace DatabaseManager
             Console.WriteLine("Enter 1 for scan on or 0 for scan off");
             bool parsed = int.TryParse(Console.ReadLine(), out option);
 
-            if (option != 0 && option != 1)
+            if (!parsed || (option != 0 && option != 1))
             {
                 Console.WriteLine("Incorrect scan on off input");
                 return;
             }
+
             bool scanOn = option == 1 ? true : false;
 
             bool success = proxy.setTagScan(id, scanOn);
@@ -272,14 +273,20 @@ namespace DatabaseManager
             Console.WriteLine("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress: ");
+            Console.WriteLine("Enter IOAddress 3, 4 or 5: ");
             string IOAddress = Console.ReadLine();
+
+            if (IOAddress != "3" || IOAddress != "4" || IOAddress != "5")
+            {
+                Console.WriteLine("Not an analog output address!!!");
+                return;
+            }
 
 
             Console.WriteLine("Enter low limit: ");
             double lowLimit = -1;
-            double.TryParse(Console.ReadLine(), out lowLimit);
-            if (lowLimit == -1)
+            bool parsed = double.TryParse(Console.ReadLine(), out lowLimit);
+            if (!parsed)
             {
                 Console.WriteLine("Bad low limit!");
                 return;
@@ -287,8 +294,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter high limit: ");
             double highLimit = -1;
-            double.TryParse(Console.ReadLine(), out highLimit);
-            if (highLimit == -1)
+            parsed = double.TryParse(Console.ReadLine(), out highLimit);
+            if (!parsed)
             {
                 Console.WriteLine("Bad high limit!");
                 return;
@@ -296,8 +303,8 @@ namespace DatabaseManager
 
             double initialValue = -1;
             Console.WriteLine("Enter initial value: ");
-            double.TryParse(Console.ReadLine(), out initialValue);
-            if (initialValue == -1)
+            parsed = double.TryParse(Console.ReadLine(), out initialValue);
+            if (!parsed)
             {
                 Console.WriteLine("Bad initial value");
                 return;
@@ -335,8 +342,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
             int driverTypeInt = -1;
-            int.TryParse(Console.ReadLine(), out driverTypeInt);
-            if (driverTypeInt != 0 && driverTypeInt != 1)
+            bool parsed = int.TryParse(Console.ReadLine(), out driverTypeInt);
+            if (!parsed || (driverTypeInt != 0 && driverTypeInt != 1))
             {
                 Console.WriteLine("Wrong driver number!");
                 return;
@@ -344,8 +351,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter scanTime: ");
             int scanTime = -1;
-            int.TryParse(Console.ReadLine(), out scanTime);
-            if (scanTime <= 0)
+            parsed = int.TryParse(Console.ReadLine(), out scanTime);
+            if (!parsed || scanTime <= 0)
             {
                 Console.WriteLine("Bad seconds!");
                 return;
@@ -353,8 +360,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter 1 for scanOn = true or 0 for scanOn = false: ");
             int scanOnInt = -1;
-            int.TryParse(Console.ReadLine(), out scanOnInt);
-            if (scanOnInt != 0 && scanOnInt != 1)
+            parsed = int.TryParse(Console.ReadLine(), out scanOnInt);
+            if (!parsed || (scanOnInt != 0 && scanOnInt != 1))
             {
                 Console.WriteLine("Bad scanOn!");
                 return;
@@ -363,8 +370,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter low limit: ");
             double lowLimit = -1;
-            double.TryParse(Console.ReadLine(), out lowLimit);
-            if (lowLimit == -1)
+            parsed = double.TryParse(Console.ReadLine(), out lowLimit);
+            if (!parsed)
             {
                 Console.WriteLine("Bad low limit!");
                 return;
@@ -372,8 +379,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter high limit: ");
             double highLimit = -1;
-            double.TryParse(Console.ReadLine(), out highLimit);
-            if (highLimit == -1)
+            parsed = double.TryParse(Console.ReadLine(), out highLimit);
+            if (!parsed)
             {
                 Console.WriteLine("Bad high limit!");
                 return;
@@ -401,13 +408,20 @@ namespace DatabaseManager
             Console.WriteLine("Enter description: ");
             string description = Console.ReadLine();
 
-            Console.WriteLine("Enter IOAddress: ");
+            Console.WriteLine("Enter IOAddress 0, 1, or 2: ");
             string IOAddress = Console.ReadLine();
+
+            if (IOAddress != "0" || IOAddress != "1" || IOAddress != "2")
+            {
+                Console.WriteLine("Not a digital output address!!!");
+                return;
+            }
+                
 
             double initialValue = -1;
             Console.WriteLine("Enter initial value: (0 or 1) ");
-            double.TryParse(Console.ReadLine(), out initialValue);
-            if (initialValue != 0 && initialValue != 1)
+            bool parsed = double.TryParse(Console.ReadLine(), out initialValue);
+            if (!parsed || (initialValue != 0 && initialValue != 1))
             {
                 Console.WriteLine("Bad initial value!");
                 return;
@@ -436,8 +450,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter 0 for Simulation Driver or 1 for Real Time Driver: ");
             int driverTypeInt = -1;
-            int.TryParse(Console.ReadLine(), out driverTypeInt);
-            if (driverTypeInt != 0 && driverTypeInt != 1)
+            bool parsed = int.TryParse(Console.ReadLine(), out driverTypeInt);
+            if (!parsed || (driverTypeInt != 0 && driverTypeInt != 1))
             {
                 Console.WriteLine("Wrong driver number!");
                 return;
@@ -445,9 +459,9 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter scanTime: ");
             int scanTime = -1;
-            int.TryParse(Console.ReadLine(), out scanTime);
+            parsed = int.TryParse(Console.ReadLine(), out scanTime);
             Console.WriteLine("Entered scan time is: " + scanTime);
-            if (scanTime <= 0)
+            if (!parsed || scanTime <= 0)
             {
                 Console.WriteLine("Bad seconds!");
                 return;
@@ -455,8 +469,8 @@ namespace DatabaseManager
 
             Console.WriteLine("Enter 1 for scanOn = true or 0 for scanOn = false: ");
             int scanOnInt = -1;
-            int.TryParse(Console.ReadLine(), out scanOnInt);
-            if (scanOnInt != 0 && scanOnInt != 1)
+            parsed = int.TryParse(Console.ReadLine(), out scanOnInt);
+            if (!parsed || (scanOnInt != 0 && scanOnInt != 1))
             {
                 Console.WriteLine("Bad scanOn!");
                 return;

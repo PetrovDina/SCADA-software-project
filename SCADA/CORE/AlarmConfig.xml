@@ -1,2 +1,4 @@
 <alarms>
+  <alarm id="1" tagId="6" alarmType="1" limit="5" priority="2" />
+  <alarm id="2" tagId="7" alarmType="1" limit="6" priority="1" />
 </alarms>
