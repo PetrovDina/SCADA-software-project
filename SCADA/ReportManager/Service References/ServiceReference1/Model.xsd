@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfAlarmEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AlarmEntry" nillable="true" type="tns:AlarmEntry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAlarmEntry" nillable="true" type="tns:ArrayOfAlarmEntry" />
+  <xs:complexType name="AlarmEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlarmId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="InputTagId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Priority" type="tns:AlarmPriority" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AlarmEntry" nillable="true" type="tns:AlarmEntry" />
+  <xs:simpleType name="AlarmPriority">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOW">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MEDIUM">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HIGH">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AlarmPriority" nillable="true" type="tns:AlarmPriority" />
+  <xs:complexType name="ArrayOfTagValueEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagValueEntry" nillable="true" type="tns:TagValueEntry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTagValueEntry" nillable="true" type="tns:ArrayOfTagValueEntry" />
+  <xs:complexType name="TagValueEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TagValueEntry" nillable="true" type="tns:TagValueEntry" />
+</xs:schema>

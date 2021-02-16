@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ReportManagerService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IReportManager_getAlarmsByTimestamps_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAlarmsByTimestamps" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getAlarmsByTimestamps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAlarmsByTimestampsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getAlarmsByPriority_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAlarmsByPriority" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getAlarmsByPriority_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAlarmsByPriorityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getTagValuesByTimestamps_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTagValuesByTimestamps" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getTagValuesByTimestamps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTagValuesByTimestampsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getAnalogInputValues_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAnalogInputValues" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getAnalogInputValues_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAnalogInputValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getDigitalInputValues_InputMessage">
+    <wsdl:part name="parameters" element="tns:getDigitalInputValues" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getDigitalInputValues_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getDigitalInputValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getValuesById_InputMessage">
+    <wsdl:part name="parameters" element="tns:getValuesById" />
+  </wsdl:message>
+  <wsdl:message name="IReportManager_getValuesById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getValuesByIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IReportManager">
+    <wsdl:operation name="getAlarmsByTimestamps">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getAlarmsByTimestamps" message="tns:IReportManager_getAlarmsByTimestamps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getAlarmsByTimestampsResponse" message="tns:IReportManager_getAlarmsByTimestamps_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAlarmsByPriority">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getAlarmsByPriority" message="tns:IReportManager_getAlarmsByPriority_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getAlarmsByPriorityResponse" message="tns:IReportManager_getAlarmsByPriority_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTagValuesByTimestamps">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getTagValuesByTimestamps" message="tns:IReportManager_getTagValuesByTimestamps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getTagValuesByTimestampsResponse" message="tns:IReportManager_getTagValuesByTimestamps_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAnalogInputValues">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getAnalogInputValues" message="tns:IReportManager_getAnalogInputValues_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getAnalogInputValuesResponse" message="tns:IReportManager_getAnalogInputValues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getDigitalInputValues">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getDigitalInputValues" message="tns:IReportManager_getDigitalInputValues_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getDigitalInputValuesResponse" message="tns:IReportManager_getDigitalInputValues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getValuesById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReportManager/getValuesById" message="tns:IReportManager_getValuesById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReportManager/getValuesByIdResponse" message="tns:IReportManager_getValuesById_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IReportManager" type="tns:IReportManager">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getAlarmsByTimestamps">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getAlarmsByTimestamps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAlarmsByPriority">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getAlarmsByPriority" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTagValuesByTimestamps">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getTagValuesByTimestamps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAnalogInputValues">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getAnalogInputValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDigitalInputValues">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getDigitalInputValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getValuesById">
+      <soap:operation soapAction="http://tempuri.org/IReportManager/getValuesById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReportManagerService">
+    <wsdl:port name="BasicHttpBinding_IReportManager" binding="tns:BasicHttpBinding_IReportManager">
+      <soap:address location="http://localhost:8093/ReportManager" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

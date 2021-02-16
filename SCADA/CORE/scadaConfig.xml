@@ -1,0 +1,20 @@
+<tags>
+  <DigitalInputTags>
+    <DigitalInputTag id="1" description="DI1 SIM" IOAddress="0" driverType="0" scanTime="10" scanOn="true" />
+    <DigitalInputTag id="2" description="DI2 RTU" IOAddress="1" driverType="1" scanTime="5" scanOn="true" />
+  </DigitalInputTags>
+  <DigitalOutputTags>
+    <DigitalOutputTag id="4" description="DO4 OUT" IOAddress="1" value="1" />
+    <DigitalOutputTag id="5" description="D05 OUT" IOAddress="1" value="1" />
+  </DigitalOutputTags>
+  <AnalogInputTags>
+    <AnalogInputTag id="6" description="AI6 SIM" IOAddress="2" driverType="0" scanTime="15" scanOn="true" lowLimit="0" highLimit="5" />
+    <AnalogInputTag id="7" description="AI7 SIM" IOAddress="0" driverType="0" scanTime="20" scanOn="true" lowLimit="0" highLimit="8" />
+    <AnalogInputTag id="11" description="AI11 RT" IOAddress="1" driverType="1" scanTime="12" scanOn="true" lowLimit="1" highLimit="500" />
+  </AnalogInputTags>
+  <AnalogOutputTags>
+    <AnalogOutputTag id="8" description="AO8 OUT" IOAddress="3" value="55" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="9" description="A09 OUT" IOAddress="3" value="55" lowLimit="0" highLimit="100" />
+    <AnalogOutputTag id="10" description="A010 OU" IOAddress="4" value="40" lowLimit="0" highLimit="100" />
+  </AnalogOutputTags>
+</tags>
